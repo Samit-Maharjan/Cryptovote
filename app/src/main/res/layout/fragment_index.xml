@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".index">
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:layout_marginTop="400px"
+    />
 
-    <TableLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        >
         <TextView
             android:id="@+id/Cryptovote"
             android:layout_width="match_parent"
@@ -15,62 +25,21 @@
             android:fontFamily="monospace"
             android:text="CRYPTO-VOTE"
             android:textSize="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+             />
+        <TextView
+            android:id="@+id/vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="VOTE"
+            android:textSize="50dp"
+            android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:gravity="center_horizontal" />
+            android:layout_margin="70dp"
+            />
+    </RelativeLayout>
 
-        <TableRow
-            android:id="@+id/result1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/voting_list_boxes">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-light"
-                />
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/result2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/voting_list_boxes">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-light"/>
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/result3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/voting_list_boxes">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-light"
-                />
-
-        </TableRow>
-    </TableLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

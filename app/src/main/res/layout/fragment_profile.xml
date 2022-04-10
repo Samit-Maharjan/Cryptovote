@@ -11,10 +11,10 @@
         android:fontFamily="monospace"
         android:text="CRYPTO-VOTE"
         android:textSize="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        />
 
     <LinearLayout
         android:id="@+id/imageLayout"

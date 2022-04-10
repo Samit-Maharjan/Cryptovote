@@ -4,27 +4,79 @@
     android:layout_height="match_parent"
     >
 
-    <TextView
-        android:id="@+id/Cryptovote"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:text="CRYPTO-VOTE"
-        android:textSize="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:textAlignment="center"
-        android:gravity="center_horizontal" />
+        android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <TableLayout
-            android:id="@+id/tableResult"
+        <TextView
+            android:id="@+id/Cryptovote"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="0dp"
-            android:stretchColumns="*">
-        </TableLayout>
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="CRYPTO-VOTE"
+            android:textSize="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:textAlignment="center"
+            android:gravity="center_horizontal" />
+
+        <TableRow
+            android:id="@+id/result1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/voting_list_boxes">
+
+            <TextView
+                android:text="Candidate 3: 10 Votes"
+                android:textSize="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/result2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/voting_list_boxes">
+
+            <TextView
+                android:text="Candidate 1: 5 Votes"
+                android:textSize="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/result3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/voting_list_boxes">
+
+            <TextView
+                android:text="Candidate 2: 2 votes"
+                android:textSize="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-light"
+                />
+
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>

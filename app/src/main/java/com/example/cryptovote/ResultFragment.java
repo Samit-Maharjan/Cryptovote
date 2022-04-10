@@ -18,20 +18,20 @@ public class ResultFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_result, container, false);
-        viewResult(view);
+        //viewResult(view);
         return view;
     }
-    void viewResult(View v){
-        TableLayout stk = (TableLayout) v.findViewById(R.id.tableResult);
-        TableRow tbrow0 = new TableRow(getContext());
-
-
-        TextView tx0 = new TextView(getContext());
-        tx0.setText("Name");
-
-        tx0.setTextColor(Color.BLACK);
-        tbrow0.addView(tx0);
-
-        stk.addView(tbrow0);
-    }
+//    void viewResult(View v){
+//        TableLayout stk = (TableLayout) v.findViewById(R.id.tableResult);
+//        TableRow tbrow0 = new TableRow(getContext());
+//
+//
+//        TextView tx0 = new TextView(getContext());
+//        tx0.setText("Name");
+//
+//        tx0.setTextColor(Color.BLACK);
+//        tbrow0.addView(tx0);
+//
+//        stk.addView(tbrow0);
+//    }
 }
