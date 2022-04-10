@@ -37,16 +37,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/Registration"
             android:layout_marginTop="100dp"
+            android:layout_toLeftOf="@id/editTextLastName"
             android:ems="10"
             android:hint="First Name"
-            android:inputType="textPersonName"
-            android:layout_toLeftOf="@id/editTextLastName">
+            android:inputType="textPersonName">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/FirstName"
                 android:layout_width="141dp"
                 android:layout_height="48dp"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@id/editTextLastName" />
+                android:layout_toLeftOf="@id/editTextLastName"
+                android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -63,8 +65,10 @@
             android:layout_alignParentRight="true">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/LastName"
                 android:layout_width="150dp"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,11 +79,14 @@
             android:hint="Confirm Password"
             android:inputType="textPassword"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/editPass">
+            android:layout_below="@id/editPass"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ConfirmPass"
                 android:layout_width="300dp"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -90,11 +97,14 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/editEmail">
+            android:layout_below="@id/editEmail"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Pass"
                 android:layout_width="300dp"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -108,8 +118,10 @@
             android:layout_below="@id/editAadhaar">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Email"
                 android:layout_width="300dp"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -123,8 +135,10 @@
             android:layout_below="@id/editTextLastName">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Aadhaar"
                 android:layout_width="300dp"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
