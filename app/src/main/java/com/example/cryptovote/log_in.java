@@ -50,14 +50,22 @@ public class log_in extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.forgot_password:
-//                Intent register_act = new Intent(getApplicationContext(), .class);
-//                startActivity(register_act);
+                Intent pwd_act = new Intent(getApplicationContext(), ForgotPassword.class);
+                startActivity(pwd_act);
                 break;
             case R.id.log_in_button:
                 userLogin();
-//                Intent register_act = new Intent(getApplicationContext(), register.class);
-//                startActivity(register_act);
                 break;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mAuth.getCurrentUser() != null) {
+            Intent register_act = new Intent(getApplicationContext(), index.class);
+            startActivity(register_act);
         }
     }
 
@@ -92,6 +100,8 @@ public class log_in extends AppCompatActivity implements View.OnClickListener {
 
                             if(user.isEmailVerified()){
                                 Toast.makeText(log_in.this, "Successful Login", Toast.LENGTH_SHORT).show();
+                                Intent login_act = new Intent(getApplicationContext(), index.class);
+                                startActivity(login_act);
                             }
                             else{
                                 user.sendEmailVerification();

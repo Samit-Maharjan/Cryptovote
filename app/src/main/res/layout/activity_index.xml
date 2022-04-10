@@ -21,9 +21,10 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
+      android:layout_marginBottom="0dp"
+      android:theme="@style/nav_bar"
       app:itemIconTint="@color/white"
       app:itemTextColor="@color/white"
-      android:theme="@style/nav_bar"
       app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>

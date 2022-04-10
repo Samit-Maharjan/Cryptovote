@@ -37,14 +37,14 @@ public class register extends AppCompatActivity implements View.OnClickListener{
         email = findViewById(R.id.Email);
         adhaar  = findViewById(R.id.Aadhaar);
 
-        findViewById(R.id.button).setOnClickListener(this);
+        findViewById(R.id.register).setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button:
+            case R.id.register:
                 registerUser();
                 break;
         }
