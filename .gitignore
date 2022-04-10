@@ -1,2 +1,4 @@
 .gradle
 .idea
+.settings
+local.properties
