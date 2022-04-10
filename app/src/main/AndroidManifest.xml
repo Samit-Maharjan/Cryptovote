@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".index"
+            android:exported="false" />
+        <activity
             android:name=".add_candidate"
             android:exported="false"
             tools:ignore="MissingClass" />
