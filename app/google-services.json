@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "172107893739",
+    "project_id": "cryptovote-1ceec",
+    "storage_bucket": "cryptovote-1ceec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172107893739:android:15f16501ee08e01c78e7ae",
+        "android_client_info": {
+          "package_name": "com.example.cryptovote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172107893739-dneoli92tqbn4g2et0lhjajab1olv5pq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiMkMICNDFP6S8kFtC2KtEQVFtKC-Yxq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172107893739-dneoli92tqbn4g2et0lhjajab1olv5pq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
