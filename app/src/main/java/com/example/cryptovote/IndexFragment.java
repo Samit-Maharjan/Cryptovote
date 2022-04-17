@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 public class IndexFragment extends Fragment implements candidateAdapter.CandidateListener {
     RecyclerView recyclerView;
     DatabaseReference database;
+    private FirebaseUser user;
+    String userID;
     candidateAdapter myAdapter;
     ArrayList<candidate> list;
 
@@ -65,6 +69,10 @@ public class IndexFragment extends Fragment implements candidateAdapter.Candidat
 
     @Override
     public void CandidateClick(int position) {
-        Toast.makeText(getActivity(), "acfsdfsdfsdfsdfsf Voted", Toast.LENGTH_SHORT).show();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference();
+        userID = user.getUid();
+       Blockchain blockchain = new Blockchain(position + 1, userID);
+
     }
 }
