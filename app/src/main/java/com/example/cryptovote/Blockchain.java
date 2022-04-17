@@ -1,65 +1,68 @@
 package com.example.cryptovote;
 
-import android.annotation.SuppressLint;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.example.cryptovote.contracts.Election;
+import org.web3j.protocol.Web3j;
 
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
-import org.web3j.crypto.TransactionEncoder;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
-import org.web3j.protocol.core.methods.response.EthGetTransactionReceipt;
-import org.web3j.protocol.core.methods.response.EthSendTransaction;
+
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.RawTransactionManager;
+import org.web3j.tx.TransactionManager;
+import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
-import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
-import java.util.Optional;
-
+import java.math.BigDecimal;
 
 public class Blockchain {
-    Credentials credentials;
-    Web3ClientVersion web3ClientVersion;
-    EthSendTransaction ethSendTransaction;
-    Optional<TransactionReceipt> transactionReceipt;
-    String privateKey="1993504787fb8fc36ee0c70cb6ec64f268110f68bb0648518252946a1f9a1b3b";
-    String recipientAddress="0x1633fcA3DE5499Ecf0d0756C1be70435003d5Df1";
-    final Web3j web3 = Web3j.build(new HttpService("http://127.0.0.1:7545") );
+    String PRIVATE_KEY = "";
+    String CONTRACT_ADDRESS = "";
 
-    @SuppressLint("NewApi")
-    public Blockchain(int index, String UserID) {
-        try {
-            web3ClientVersion = web3.web3ClientVersion().sendAsync().get();
-            credentials = Credentials.create(privateKey);
-            EthGetTransactionCount ethGetTransactionCount = web3.ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST).send();
-            BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-            BigInteger value = Convert.toWei("1", Convert.Unit.ETHER).toBigInteger();
+    private final Web3j web3j = Web3j.build(new HttpService("http://127.0.0.1:7545") );
+    private final static BigInteger GAS_LIMIT = BigInteger.valueOf(6721975L);
+    private final static BigInteger GAS_PRICE = BigInteger.valueOf(20000000000L);
 
-            BigInteger gasLimit = BigInteger.valueOf(6721975);
-            BigInteger gasPrice = Convert.toWei("1", Convert.Unit.GWEI).toBigInteger();
+    private Credentials getCredentialsFromPrivateKey(){
+        return Credentials.create(PRIVATE_KEY);
+    }
 
-            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, recipientAddress, value);
-            byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-            String hexValue = Numeric.toHexString(signedMessage);
+    private String deployContract(Web3j web3j, Credentials credentials) throws Exception{
+        return Election.deploy(web3j, credentials, GAS_PRICE, GAS_LIMIT, PRIVATE_KEY)
+                .send()
+                .getContractAddress();
+    }
 
-            ethSendTransaction = web3.ethSendRawTransaction(hexValue).send();
-            String transactionHash = ethSendTransaction.getTransactionHash();
-            System.out.println("Transaction Hash: " + transactionHash);
+    private Election loadContract(String CONTRACT_ADDRESS, Web3j web3j, Credentials credentials){
+        return Election.load(CONTRACT_ADDRESS, web3j, credentials, GAS_PRICE, GAS_LIMIT);
+    }
 
-            do {
-                EthGetTransactionReceipt ethGetTransactionReceipt = web3.ethGetTransactionReceipt(transactionHash).send();
-                transactionReceipt = ethGetTransactionReceipt.getTransactionReceipt();
-            } while (!transactionReceipt.isPresent());
+    private void AddVoter(Election election, String name, String address) throws Exception{
+        election.addVoter(name, address);
+    }
 
-            System.out.println("Transaction " + transactionHash +  "in the Block #" + transactionReceipt.get().getBlockNumber() );
-            System.out.println("Balance: " + Convert.fromWei(web3.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST)
-            .send().getBalance().toString(), Convert.Unit.ETHER));
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+    private void AddCandidate(Election election, String name, String address) throws Exception{
+        election.addCandidate(name, address);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void transferEth(Web3j web3j, Credentials credentials, String RECIPIENT) throws Exception{
+        TransactionManager transactionManager = new RawTransactionManager(
+                web3j,
+                credentials
+        );
+        Transfer transfer = new Transfer(web3j, transactionManager);
+        TransactionReceipt transactionReceipt = transfer.sendFunds(
+                RECIPIENT,
+                BigDecimal.ONE,
+                Convert.Unit.ETHER,
+                GAS_PRICE,
+                GAS_LIMIT
+        ).send();
     }
 }
