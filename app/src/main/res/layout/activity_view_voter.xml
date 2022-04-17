@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".viewCandidates">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/Cryptovote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="CRYPTO-VOTE"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#286090"
+            />
+
+        <TextView
+            android:id="@+id/viewVoter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="VOTERS"
+            android:textAlignment="center"
+            android:textSize="50dp"
+            android:layout_below="@id/Cryptovote"
+            />
+
+        <TableLayout
+            android:layout_below="@id/viewVoter"
+            android:layout_marginTop="10dp"
+            android:id="@+id/candidate_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/table_row1"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tableVotername"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="2"
+                    android:textColor="#000"
+                    android:text="Candidate Name"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
+                <TextView
+                    android:id="@+id/tableCandvotes"
+                    android:textColor="#000"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="Vote"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
+
+            </TableRow>
+        </TableLayout>
+
+        <ListView
+            android:id="@+id/voters_view"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_marginTop="200dp"
+            >
+        </ListView>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

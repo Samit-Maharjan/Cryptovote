@@ -24,6 +24,7 @@
       android:layout_marginBottom="0dp"
       android:theme="@style/nav_bar"
       app:itemIconTint="@color/white"
+      android:background="#286090"
       app:itemTextColor="@color/white"
       app:menu="@menu/menu_bottom_navigation" />
 

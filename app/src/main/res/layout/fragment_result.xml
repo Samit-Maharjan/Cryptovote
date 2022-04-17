@@ -12,13 +12,29 @@
             android:id="@+id/Cryptovote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif-medium"
             android:text="CRYPTO-VOTE"
             android:textSize="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#286090"
+            />
+
+        <TextView
+            android:id="@+id/resultsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="RESULTS"
+            android:textSize="50dp"
+            android:layout_centerHorizontal="true"
             android:textAlignment="center"
-            android:gravity="center_horizontal" />
+            />
 
         <TableRow
             android:id="@+id/result1"
