@@ -11,6 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".viewVoter"
+            android:exported="false" />
+        <activity
+            android:name=".viewCandidates"
+            android:exported="false" />
+        <activity
+            android:name=".adminIndex"
+            android:exported="false" />
+        <activity
+            android:name=".adminLogin"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPassword"
             android:exported="false" />
         <activity

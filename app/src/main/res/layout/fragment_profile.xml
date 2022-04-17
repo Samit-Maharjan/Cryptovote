@@ -8,12 +8,16 @@
         android:id="@+id/Cryptovote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
+        android:fontFamily="sans-serif-medium"
         android:text="CRYPTO-VOTE"
         android:textSize="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#286090"
         />
 
     <LinearLayout
@@ -22,7 +26,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="30dp"
-        android:background="@color/lightBlack"
         android:layout_below="@id/Cryptovote"
         >
 
@@ -52,6 +55,7 @@
 
             <TextView
                 android:text="Name:"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 />
             <TextView
@@ -68,7 +72,8 @@
             android:padding="10dp">
 
             <TextView
-                android:text="Aadhaar Number:"
+                android:text="Aadhaar No.:"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 />
 
@@ -87,6 +92,7 @@
 
             <TextView
                 android:text="E-mail:"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 />
             <TextView

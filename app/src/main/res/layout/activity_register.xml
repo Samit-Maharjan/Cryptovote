@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/Registration"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_toLeftOf="@id/editTextLastName"
             android:ems="10"
             android:hint="First Name"
@@ -47,8 +47,7 @@
                 android:layout_width="141dp"
                 android:layout_height="48dp"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@id/editTextLastName"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,8 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="6dp"
             android:hint="Last Name"
             android:inputType="textPersonName"
             android:layout_below="@id/Registration"

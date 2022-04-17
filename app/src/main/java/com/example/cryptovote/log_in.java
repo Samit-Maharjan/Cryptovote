@@ -35,6 +35,7 @@ public class log_in extends AppCompatActivity implements View.OnClickListener {
         findViewById(R.id.log_in_button).setOnClickListener(this);
         findViewById(R.id.new_user_lin).setOnClickListener(this);
         findViewById(R.id.forgot_password).setOnClickListener(this);
+        findViewById(R.id.adminLogin).setOnClickListener(this);
 
         email = findViewById(R.id.editTextEmailAddress);
         password = findViewById(R.id.editTextPassword);
@@ -56,9 +57,14 @@ public class log_in extends AppCompatActivity implements View.OnClickListener {
             case R.id.log_in_button:
                 userLogin();
                 break;
+            case R.id.adminLogin:
+                Intent adlogin_act = new Intent(getApplicationContext(), adminLogin.class);
+                startActivity(adlogin_act);
+                break;
         }
     }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
@@ -67,7 +73,7 @@ public class log_in extends AppCompatActivity implements View.OnClickListener {
             Intent register_act = new Intent(getApplicationContext(), index.class);
             startActivity(register_act);
         }
-    }
+    }*/
 
     private void userLogin() {
         String emailstr = email.getText().toString();

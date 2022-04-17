@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adminIndex">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/Cryptovote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="CRYPTO-VOTE"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#286090"
+        />
+
+        <TextView
+            android:id="@+id/adminText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="ADMIN"
+            android:textSize="50dp"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:layout_below="@id/Cryptovote"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/indexAddcand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFontWeight="10"
+            android:padding="10dp"
+            android:text="Add Candidate"
+            android:layout_below="@id/adminText"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="#123456"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/indexViewcand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFontWeight="10"
+            android:padding="10dp"
+            android:text="View Candidates"
+            android:layout_below="@id/indexAddcand"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="#123456"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/indexViewvoter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFontWeight="10"
+            android:padding="10dp"
+            android:text="View Voters"
+            android:layout_below="@id/indexViewcand"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="#123456"
+            />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/adminLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textFontWeight="10"
+            android:padding="10dp"
+            android:text="Log Out"
+            android:layout_below="@id/indexViewvoter"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/rounded_corner"
+            />
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
