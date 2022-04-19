@@ -29,11 +29,16 @@ public class vote extends AppCompatActivity {
 
         int bID = bundle.getInt("bID");
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+//        int userID = user.getUid();
+
+
         TextView cName = findViewById(R.id.indCandname);
         cName.setText(candName);
 
         TextView cID = findViewById(R.id.indCandID);
-        cID.setText("ID: "+candID);
+        cID.setText("ID: " + candID);
 
     }
 }
