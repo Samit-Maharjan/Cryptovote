@@ -152,13 +152,6 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
-        Blockchain blockchain = new Blockchain();
-        try {
-            blockchain.AddVoter(count);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 

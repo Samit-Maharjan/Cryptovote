@@ -24,7 +24,7 @@ public class viewCandidates extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_candidates);
 
-        candidateAdapter2 cad = new candidateAdapter2(this, new ArrayList<candidate>());
+        candidateAdapter2 cad = new candidateAdapter2(this, new ArrayList<candidate>(), new ArrayList<Integer>());
         final ListView candidateView = (ListView) findViewById(R.id.records_view);
 
 
@@ -35,7 +35,8 @@ public class viewCandidates extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot d: snapshot.getChildren()){
                     candidate user = d.getValue(candidate.class);
-                    cad.add(user);
+                    cad.add(user,2
+                    );
                 }
                 candidateView.setAdapter(cad);
                 cad.notifyDataSetChanged();

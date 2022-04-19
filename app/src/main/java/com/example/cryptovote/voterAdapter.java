@@ -16,9 +16,10 @@ public class voterAdapter extends BaseAdapter {
     private List<voterReg> list;
     private List<String> hasVoted;
 
-    public voterAdapter(Context context, List<voterReg> list) {
+    public voterAdapter(Context context, List<voterReg> list, List<String> hasVoted) {
         this.context = context;
         this.list = list;
+        this.hasVoted = hasVoted;
     }
 
     @Override
