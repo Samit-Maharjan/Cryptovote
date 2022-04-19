@@ -44,6 +44,7 @@
             android:background="@drawable/voting_list_boxes">
 
             <TextView
+                android:id="@+id/resulttxt1"
                 android:text="Candidate 3: 10 Votes"
                 android:textSize="30dp"
                 android:layout_width="wrap_content"
@@ -64,6 +65,7 @@
             android:background="@drawable/voting_list_boxes">
 
             <TextView
+                android:id="@+id/resulttxt2"
                 android:text="Candidate 1: 5 Votes"
                 android:textSize="30dp"
                 android:layout_width="wrap_content"
@@ -83,6 +85,7 @@
             android:background="@drawable/voting_list_boxes">
 
             <TextView
+                android:id="@+id/resulttxt3"
                 android:text="Candidate 2: 2 votes"
                 android:textSize="30dp"
                 android:layout_width="wrap_content"

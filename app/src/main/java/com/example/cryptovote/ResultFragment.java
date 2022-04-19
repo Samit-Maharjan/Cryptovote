@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 
 public class ResultFragment extends Fragment{
@@ -18,7 +17,11 @@ public class ResultFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_result, container, false);
-        //viewResult(view);
+        int count = 3;
+        Blockchain blockchain = new Blockchain();
+        result1 = blockchain.
+        TextView txt1 = (TextView) getView().findViewById(R.id.resulttxt1);
+
         return view;
     }
 //    void viewResult(View v){

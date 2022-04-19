@@ -17,20 +17,21 @@ contract Election{
 
     mapping(uint => address) private voterID;
     mapping(address => Voter) private voters;
+
     mapping(uint256 => Candidate) private candidates;
     mapping(uint256 => uint256) private voteCount;
 
     address public admin;
 
-    enum state {notstarted, started, ongoing, ended}
+    enum state {notstarted, started, ended}
 
     state electionState;
-    uint256 public candidateCount;
-    uint256 public voterCount;
+    uint256 public candidateCount = 0;
+    uint256 public voterCount = 0;
 
     modifier checkIfnotStarted(){
         require(
-        electionState == state.notstarted,
+        (electionState == state.notstarted || electionState == state.ended),
         "The election has already started"
                );
         _;
@@ -40,14 +41,6 @@ contract Election{
         require(
         electionState == state.started,
         "The election is ongoing or already ended."
-               );
-        _;
-    }
-
-    modifier checkIfOngoing(){
-        require(
-        electionState == state.ongoing,
-        "The election is not ongoing."
                );
         _;
     }
@@ -116,28 +109,12 @@ contract Election{
         _;
     }
 
-    event addedAVoter(address voter);
-
-    event votedSuccessfully(uint256 candidateId);
-
-    event electionStart(state election_state);
-    event electionEnd(state election_state);
-    
-    event addedACandidate(uint candidateID, string candidateName);
-
-    constructor(address owner) {
-        admin = owner;
-        electionState = state.notstarted; 
-    }
-
-    function checkState() public view returns (string memory State)
+    function checkState() view public returns (string memory State)
     {
         if(electionState == state.notstarted)
         return "Election Not Started!!";
         else if(electionState == state.started)
         return "Election Started!!";
-        else if(electionState == state.ongoing)
-        return "Election in Process!!";
         else if(electionState == state.ended)
         return "Election Ended!!";
     }
@@ -154,8 +131,6 @@ contract Election{
         candidates[candidateCount].name = _name;
 
         voteCount[candidateCount] = 0;
-
-        emit addedACandidate(candidateCount, _name);
     }
 
     function addVoter(address _voter, address owner)
@@ -169,50 +144,30 @@ contract Election{
         voterID[voterCount] = _voter;
         voters[_voter].weight = 1;
         voters[_voter].isRegistered = true;
-        emit addedAVoter(_voter);
     }
+
+    function setAdmin(address owner) 
+        public
+        checkIfnotStarted
+    {
+        admin = owner;
+        electionState = state.notstarted;
+    } 
 
     function startElection(address owner) public checkAdmin(owner) checkIfnotStarted {
         electionState = state.started;
-        emit electionStart(electionState);
     }
 
-    function displayCandidate(uint256 _ID)
-        public
-        view
-        returns (
-            uint256 id,
-            string memory name
-        )
-    {
-        return (
-            candidates[_ID].ID,
-            candidates[_ID].name
-        );
+    function endElection(address owner) public checkAdmin(owner) checkIfStarted{
+        electionState = state.ended;
     }
-
-    function showWinner()
-        public
-        view
-        checkIfEnded
-        returns (string memory name, uint256 id, uint256 votes)
-    {
-        uint256 max = 0;
-        uint256 maxIndex;
-        string memory winner;
-        for (uint256 i = 1; i <= candidateCount; i++) {
-            if (voteCount[i] > max) {
-                winner = candidates[i].name;
-                maxIndex = i;
-                max = voteCount[i];
-            }
-        }
-        return (winner, maxIndex, max) ;
+    
+    function restartElection(address owner) public checkAdmin(owner){
+        electionState = state.notstarted;
     }
 
     function vote(uint256 _ID, address owner)
         public
-        checkIfOngoing
         checkIfVoterValid(owner)
         checkIfCandidateValid(_ID)
     {
@@ -220,12 +175,23 @@ contract Election{
         voters[owner].voteTo = _ID;
         voteCount[_ID] += voters[owner].weight;
         voters[owner].weight = 0;
-        emit votedSuccessfully(_ID);
     }
 
-    function endElection(address owner) public checkAdmin(owner) {
-        electionState = state.ended;
-        emit electionEnd(electionState);
+    function showWinner()
+        public
+        view
+        checkIfEnded
+        returns (uint256 id, uint256 votes)
+    {
+        uint256 max = 0;
+        uint256 maxIndex;
+        for (uint256 i = 1; i <= candidateCount; i++) {
+            if (voteCount[i] > max) {
+                maxIndex = i;
+                max = voteCount[i];
+            }
+        }
+        return (maxIndex, max) ;
     }
 
     function showResults(uint256 _ID)
@@ -235,48 +201,22 @@ contract Election{
         checkIfCandidateValid(_ID)
         returns (
             uint256 id,
-            string memory name,
             uint256 count
         )
     {
-        return (_ID, candidates[_ID].name, voteCount[_ID]);
+        return (_ID, voteCount[_ID]);
     }
 
-    function getVoter(uint ID, address owner)  public view checkAdmin(owner)
+    function getVoter(uint ID, address owner)  view public checkAdmin(owner)
     returns (
         uint256 id,
-        address voterAddress,
         uint256 weight
     )
     {
         return (
             ID,
-            voterID[ID],
             voters[voterID[ID]].weight
         );
     }
-
-    function voterProfile(address voterAddress) public view 
-    returns (
-        uint256 id,
-        uint256 weight,
-        uint256 votedTowards,
-        string memory name // Candidate voted
-        )
-    {
-         
-        for(uint256 i = 1; i<= voterCount; i++)
-        {
-            if(voterAddress == voterID[i])
-            {
-                return (
-                    i,
-                    voters[voterID[i]].weight,
-                    voters[voterID[i]].voteTo,
-                    candidates[voters[voterID[i]].voteTo].name
-                    );
-            }
-        }
-    } 
 }
 

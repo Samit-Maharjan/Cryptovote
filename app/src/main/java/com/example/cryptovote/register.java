@@ -37,7 +37,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
     EditText fname, lname, cpass, email, password, adhaar, date;
     private DatePickerDialog datePickerDialog;
     private FirebaseAuth mAuth;
-
+    private int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +151,25 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
+        Blockchain blockchain = new Blockchain();
+        try {
+            blockchain.AddVoter(count);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        mAuth.createUserWithEmailAndPassword(emaill,pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            voterReg vot = new voterReg(FirstName, LastName, emaill, adh);
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(vot).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                                                         }
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         reference.orderByChild("adhaar").equalTo(adh).addValueEventListener(new ValueEventListener() {
