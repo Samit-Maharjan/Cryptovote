@@ -27,6 +27,8 @@ public class vote extends AppCompatActivity {
 
         String candID = bundle.getString("ID");
 
+        int bID = bundle.getInt("bID");
+
         TextView cName = findViewById(R.id.indCandname);
         cName.setText(candName);
 

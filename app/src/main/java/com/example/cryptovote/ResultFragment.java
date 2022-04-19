@@ -19,7 +19,6 @@ public class ResultFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_result, container, false);
         int count = 3;
         Blockchain blockchain = new Blockchain();
-        result1 = blockchain.
         TextView txt1 = (TextView) getView().findViewById(R.id.resulttxt1);
 
         return view;

@@ -14,6 +14,7 @@ import java.util.List;
 public class voterAdapter extends BaseAdapter {
     private Context context;
     private List<voterReg> list;
+    private List<String> hasVoted;
 
     public voterAdapter(Context context, List<voterReg> list) {
         this.context = context;
@@ -35,6 +36,10 @@ public class voterAdapter extends BaseAdapter {
         return i;
     }
 
+    public String getState(int i){
+        return hasVoted.get(i);
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         voterViewHolder holder;
@@ -46,6 +51,7 @@ public class voterAdapter extends BaseAdapter {
 
             holder = new voterViewHolder();
             holder.nameView = (TextView) view.findViewById(R.id.voter_name);
+            holder.voteView = (TextView) view.findViewById(R.id.voter_vote);
             view.setTag(holder);
         }
         else{
@@ -53,14 +59,17 @@ public class voterAdapter extends BaseAdapter {
         }
 
         voterReg voter = (voterReg) getItem(i);
+        String state = (String) getState(i);
         String name = voter.getFname()+" "+voter.getLname();
         holder.nameView.setText(name);
+        holder.voteView.setText(state);
 
         return view;
     }
 
-    public void add(voterReg voter){
+    public void add(voterReg voter,String s){
         list.add(voter);
+        hasVoted.add(s);
     }
 }
 

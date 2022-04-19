@@ -68,13 +68,14 @@ public class IndexFragment extends Fragment implements candidateAdapter.Candidat
     }
 
     @Override
-    public void CandidateClick(String s, String i) {
+    public void CandidateClick(String s, String i, int bID) {
 
         Intent intent = new Intent(getActivity(),vote.class);
         Bundle bundle = new Bundle();
 
         bundle.putString("name",s);
         bundle.putString("ID",i);
+        bundle.putInt("bID",bID);
         intent.putExtras(bundle);
         startActivity(intent);
 
