@@ -3,11 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <TextView
             android:id="@+id/Cryptovote"
             android:layout_width="match_parent"
@@ -34,68 +29,53 @@
             android:textSize="50dp"
             android:layout_centerHorizontal="true"
             android:textAlignment="center"
+            android:layout_below="@id/Cryptovote"
             />
 
-        <TableRow
-            android:id="@+id/result1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/voting_list_boxes">
-
-            <TextView
-                android:id="@+id/resulttxt1"
-                android:text="Candidate 3: 10 Votes"
-                android:textSize="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-light"
-                />
-
-        </TableRow>
+    <TableLayout
+        android:layout_below="@id/resultsText"
+        android:layout_marginTop="10dp"
+        android:id="@+id/candidate_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TableRow
-            android:id="@+id/result2"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/voting_list_boxes">
+            android:layout_width="match_parent"
+            android:id="@+id/table_row1"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/resulttxt2"
-                android:text="Candidate 1: 5 Votes"
-                android:textSize="30dp"
-                android:layout_width="wrap_content"
+                android:id="@+id/tableCandname"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-light"/>
-
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/result3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/voting_list_boxes">
-
+                android:layout_width="match_parent"
+                android:layout_weight="2"
+                android:textColor="#000"
+                android:text="Candidate Name"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
             <TextView
-                android:id="@+id/resulttxt3"
-                android:text="Candidate 2: 2 votes"
-                android:textSize="30dp"
-                android:layout_width="wrap_content"
+                android:id="@+id/tableCandvotes"
+                android:textColor="#000"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textColor="@color/white"
-                android:fontFamily="sans-serif-light"
-                />
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="Votes"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
 
         </TableRow>
     </TableLayout>
+
+    <ListView
+        android:id="@+id/results_view"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_marginTop="200dp"
+        >
+    </ListView>
 </RelativeLayout>
