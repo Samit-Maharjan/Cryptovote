@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import kotlinx.coroutines.channels.SendElement;
+
 public class adminIndex extends AppCompatActivity implements View.OnClickListener{
 
     @Override
@@ -20,6 +22,8 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.indexAddcand).setOnClickListener(this);
         findViewById(R.id.indexViewcand).setOnClickListener(this);
         findViewById(R.id.indexViewvoter).setOnClickListener(this);
+        findViewById(R.id.indexStartElection).setOnClickListener(this);
+        findViewById(R.id.indexEndElection).setOnClickListener(this);
         findViewById(R.id.adminLogout).setOnClickListener(this);
 
     }
@@ -39,10 +43,24 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
                 Intent viewvoter = new Intent(getApplicationContext(),viewVoter.class);
                 startActivity(viewvoter);
                 break;
+            case R.id.indexStartElection:
+                startElection();
+                break;
+            case R.id.indexEndElection:
+                endElection();
+                break;
             case R.id.adminLogout:
                 adminlogout();
                 break;
         }
+    }
+
+    private void endElection() {
+
+    }
+
+    private void startElection() {
+
     }
 
     private void adminlogout() {
