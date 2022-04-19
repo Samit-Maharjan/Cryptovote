@@ -58,6 +58,9 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
             return;
         }
 
+        Blockchain blockchain = new Blockchain();
+        blockchain.AddCandidate(candName);
+
         candidate cand = new candidate(candName, ID);
 
         DatabaseReference databaseref = FirebaseDatabase.getInstance().getReference();

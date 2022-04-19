@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class register extends AppCompatActivity implements View.OnClickListener{
     EditText fname, lname, cpass, email, password, adhaar;
     private FirebaseAuth mAuth;
-
+    private int count = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +107,14 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             password.setError("Password should contain at least one special and uppercase character");
             password.requestFocus();
             return;
+        }
+
+        Blockchain blockchain = new Blockchain();
+        try {
+            blockchain.AddVoter(count);
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
 
         mAuth.createUserWithEmailAndPassword(emaill,pass)

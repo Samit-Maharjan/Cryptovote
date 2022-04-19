@@ -72,7 +72,7 @@ public class IndexFragment extends Fragment implements candidateAdapter.Candidat
         user = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
         userID = user.getUid();
-       Blockchain blockchain = new Blockchain(position + 1, userID);
+       Blockchain blockchain = new Blockchain();
 
     }
 }
