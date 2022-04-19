@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserNotRegistered">
+    tools:context=".election_not_started">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Could not connect to the Database. Check your connection or wait or wait for some time to get verified..."
+        android:text="Election has not started yet or has already ended!!"
         android:layout_gravity="center"
+        android:textAlignment="center"
         android:textSize="20dp"
         android:padding="15dp"
         />
-
-</FrameLayout>
+    </FrameLayout>

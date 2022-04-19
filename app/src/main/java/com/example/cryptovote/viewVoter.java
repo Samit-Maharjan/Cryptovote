@@ -33,10 +33,13 @@ public class viewVoter extends AppCompatActivity {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Blockchain blockchain = new Blockchain();
                 for(DataSnapshot d: snapshot.getChildren()){
                     voterReg user = d.getValue(voterReg.class);
 
-                    votadapter.add(user,"Yes");
+                    String address = blockchain.getAddress(user.getUserID());
+                    String voted = (blockchain.checkVoted(address) ? "Yes" : "No");
+                    votadapter.add(user, voted);
                 }
                 candidateView.setAdapter(votadapter);
                 votadapter.notifyDataSetChanged();

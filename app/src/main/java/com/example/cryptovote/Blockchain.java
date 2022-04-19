@@ -65,6 +65,10 @@ public class Blockchain {
         return Election.load(CONTRACT_ADDRESS, web3j, credentials, GAS_PRICE, GAS_LIMIT);
     }
 
+    public String getAddress(int userID){
+        return ethAccounts.getAccounts().get(userID + 1);
+    }
+
     public void AddVoter(int ID) throws Exception {
         election.addVoter(ethAccounts.getAccounts().get(ID + 1), adminAddress).send();
     }
@@ -79,7 +83,7 @@ public class Blockchain {
     }
 
     public String GetCandidateName(int ID) throws Exception{
-        return election.getCandidateName(BigInteger.valueof(ID) ).send();
+        return election.getCandidateName(BigInteger.valueOf(ID) ).send();
     }
 
     public String findState() throws Exception {
