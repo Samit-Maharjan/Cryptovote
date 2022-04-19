@@ -159,17 +159,6 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             e.printStackTrace();
         }
 
-        mAuth.createUserWithEmailAndPassword(emaill,pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            voterReg vot = new voterReg(FirstName, LastName, emaill, adh);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(vot).addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                                                                         }
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         reference.orderByChild("adhaar").equalTo(adh).addValueEventListener(new ValueEventListener() {
