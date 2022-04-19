@@ -219,6 +219,15 @@ contract Election{
                 return false;
             return true;
         }
+    
+    function checkRegistered(address _voter) view public
+        returns(
+        bool
+               )
+        {
+            return voters[_voter].isRegistered;
+
+    }
 
     function hasVoted(address _voter) view public
         returns(

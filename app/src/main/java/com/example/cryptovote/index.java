@@ -12,11 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.web3j.protocol.core.methods.response.EthBlock;
+
 
 public class index extends AppCompatActivity {
     Button logout;
     BottomNavigationView bottom_nav;
     IndexFragment indexFragment =  new IndexFragment();
+    UserNotRegistered userNotRegistered = new UserNotRegistered();
+    election_not_started Election_not_started = new election_not_started();
     ResultFragment resultFragment = new ResultFragment();
     ProfileFragment profileFragment = new ProfileFragment();
 
@@ -26,22 +30,33 @@ public class index extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         bottom_nav = findViewById(R.id.bottom_navigation);
-
+        Blockchain blockchain = new Blockchain();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
 
+        int id = ;// To-do
+        String address = blockchain.getAddress(id);
         bottom_nav.setOnItemSelectedListener(item -> {
-            switch(item.getItemId()){
-                case R.id.contests:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
-                    return true;
 
-                case R.id.result:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
-                    return true;
+            if(!blockchain.checkRegistered(id) )
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userNotRegistered).commit();
 
-                case R.id.profile:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
-                    return true;
+            else if(!blockchain.checkElectionStart())
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_started).commit();
+
+            else {
+                switch (item.getItemId()) {
+                    case R.id.contests:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
+                        return true;
+
+                    case R.id.result:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
+                        return true;
+
+                    case R.id.profile:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+                        return true;
+                }
             }
             return false;
         });

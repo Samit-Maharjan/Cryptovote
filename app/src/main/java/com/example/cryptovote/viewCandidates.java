@@ -33,10 +33,16 @@ public class viewCandidates extends AppCompatActivity {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Blockchain blockchain = new Blockchain();
                 for(DataSnapshot d: snapshot.getChildren()){
                     candidate user = d.getValue(candidate.class);
-                    cad.add(user,2
-                    );
+
+                    try {
+                        cad.add(user, blockchain.GetCandidate(user.getbID())
+                        );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 candidateView.setAdapter(cad);
                 cad.notifyDataSetChanged();
