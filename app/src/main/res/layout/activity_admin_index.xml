@@ -23,7 +23,7 @@
             android:paddingLeft="20dp"
             android:paddingBottom="10dp"
             android:layout_marginBottom="10dp"
-            android:background="#286090"
+            android:background="#123456"
         />
 
         <TextView
@@ -39,6 +39,7 @@
             android:layout_below="@id/Cryptovote"
             />
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/indexAddcand"
             android:layout_width="match_parent"
@@ -51,7 +52,7 @@
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:background="#123456"
+            android:background="#286090"
             />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -66,7 +67,7 @@
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="#123456"
+            android:background="#286090"
             />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -81,7 +82,37 @@
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="#123456"
+            android:background="#286090"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/indexStartElection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFontWeight="10"
+            android:padding="10dp"
+            android:text="Start Election"
+            android:layout_below="@id/indexViewvoter"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="#4CAF50"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/indexEndElection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFontWeight="10"
+            android:padding="10dp"
+            android:text="End Election"
+            android:layout_below="@id/indexStartElection"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="#F44336"
             />
 
 
@@ -92,13 +123,15 @@
             android:textFontWeight="10"
             android:padding="10dp"
             android:text="Log Out"
-            android:layout_below="@id/indexViewvoter"
+            android:layout_below="@id/indexEndElection"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:background="@drawable/rounded_corner"
             />
+
+
     </RelativeLayout>
 
 

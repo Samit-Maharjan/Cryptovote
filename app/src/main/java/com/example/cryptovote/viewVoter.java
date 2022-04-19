@@ -35,6 +35,7 @@ public class viewVoter extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot d: snapshot.getChildren()){
                     voterReg user = d.getValue(voterReg.class);
+
                     votadapter.add(user);
                 }
                 candidateView.setAdapter(votadapter);

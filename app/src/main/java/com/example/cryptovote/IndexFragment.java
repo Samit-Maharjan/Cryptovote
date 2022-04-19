@@ -68,11 +68,20 @@ public class IndexFragment extends Fragment implements candidateAdapter.Candidat
     }
 
     @Override
-    public void CandidateClick(int position) {
+    public void CandidateClick(String s, String i) {
+
+        Intent intent = new Intent(getActivity(),vote.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putString("name",s);
+        bundle.putString("ID",i);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
         userID = user.getUid();
        Blockchain blockchain = new Blockchain();
-
+        userID = user.getUid();
     }
 }

@@ -1,6 +1,12 @@
 package com.example.cryptovote;
 
+<<<<<<< HEAD
+=======
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import com.example.cryptovote.contracts.Election;
+
 import org.web3j.protocol.Web3j;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.http.HttpService;

@@ -42,7 +42,7 @@ public class candidateAdapter extends RecyclerView.Adapter<candidateAdapter.MyVi
         return list.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView Name;
         CandidateListener candidateListener;
 
@@ -56,11 +56,14 @@ public class candidateAdapter extends RecyclerView.Adapter<candidateAdapter.MyVi
 
         @Override
         public void onClick(View view) {
-            candidateListener.CandidateClick(getAdapterPosition());
+            candidate c = list.get(getAdapterPosition());
+            String s = c.getName();
+            String i = c.getID();
+            candidateListener.CandidateClick(s,i);
         }
     }
 
     public interface CandidateListener{
-        void CandidateClick(int position);
+        void CandidateClick(String s,String i);
     }
 }
