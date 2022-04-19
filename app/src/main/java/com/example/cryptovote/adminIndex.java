@@ -98,7 +98,7 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
         try {
             blockchain.endElection();
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Election has not started or already ended", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -106,7 +106,7 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
         try {
             blockchain.startElection();
         }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Election has already started", Toast.LENGTH_SHORT).show();
         }
     }
 

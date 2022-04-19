@@ -40,7 +40,7 @@ contract Election{
     modifier checkIfStarted() {
         require(
         electionState == state.started,
-        "The election is ongoing or already ended."
+        "The election has not started or already ended."
                );
         _;
     }
@@ -161,10 +161,6 @@ contract Election{
     function endElection(address owner) public checkAdmin(owner) checkIfStarted{
         electionState = state.ended;
     }
-    
-    function restartElection(address owner) public checkAdmin(owner){
-        electionState = state.notstarted;
-    }
 
     function vote(uint256 _ID, address owner)
         public
@@ -175,23 +171,6 @@ contract Election{
         voters[owner].voteTo = _ID;
         voteCount[_ID] += voters[owner].weight;
         voters[owner].weight = 0;
-    }
-
-    function showWinner()
-        public
-        view
-        checkIfEnded
-        returns (uint256 id, uint256 votes)
-    {
-        uint256 max = 0;
-        uint256 maxIndex;
-        for (uint256 i = 1; i <= candidateCount; i++) {
-            if (voteCount[i] > max) {
-                maxIndex = i;
-                max = voteCount[i];
-            }
-        }
-        return (maxIndex, max) ;
     }
 
     function showResults(uint256 _ID)
@@ -207,6 +186,18 @@ contract Election{
         return (_ID, voteCount[_ID]);
     }
 
+    function getCandidateName(uint256 _ID)
+        public
+        view
+        checkIfEnded
+        checkIfCandidateValid(_ID)
+        returns(
+            string memory name
+               )
+    {
+        return candidates[_ID].name;
+    }
+
     function getVoter(uint ID, address owner)  view public checkAdmin(owner)
     returns (
         uint256 id,
@@ -218,5 +209,23 @@ contract Election{
             voters[voterID[ID]].weight
         );
     }
+
+    function checkElectionStart() view public
+        returns(
+            bool
+               )
+        {
+            if(electionState != state.started)
+                return false;
+            return true;
+        }
+
+    function hasVoted(address _voter) view public
+        returns(
+        bool
+               )
+        {
+            return (voters[_voter].weight == 0);
+        }
 }
 

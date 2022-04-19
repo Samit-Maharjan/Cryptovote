@@ -12,6 +12,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class ResultFragment extends Fragment{
     @Nullable
     @Override
@@ -21,6 +28,30 @@ public class ResultFragment extends Fragment{
         Blockchain blockchain = new Blockchain();
         TextView txt1 = (TextView) getView().findViewById(R.id.resulttxt1);
 
+        // Extract name and votes from Blockchain
+        Blockchain blockchain1 = new Blockchain();
+
+        int totalCandidates = ;//give me from Database
+        ArrayList<Integer> voteCount = new ArrayList<>();
+        ArrayList<String>  candidates = new ArrayList<>();
+
+        for(int i = 0; i < totalCandidates; ++i){
+            try {
+                voteCount.add(blockchain.GetCandidate(i) );
+                candidates.add(blockchain.GetCandidateName(i) );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        TreeMap<Integer, String> records = new TreeMap<>();
+        for(int i = 0; i < totalCandidates; ++i)
+            records.put(voteCount.get(i), candidates.get(i));
+
+        for(Map.Entry<Integer, String> entry: records.entrySet()){
+            String name = entry.getValue();
+            int votes = entry.getKey();
+        }
         return view;
     }
 //    void viewResult(View v){

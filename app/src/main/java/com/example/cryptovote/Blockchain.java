@@ -78,6 +78,10 @@ public class Blockchain {
         return (int) results.get(1);
     }
 
+    public String GetCandidateName(int ID) throws Exception{
+        return election.getCandidateName(BigInteger.valueof(ID) ).send();
+    }
+
     public String findState() throws Exception {
         return election.checkState().send();
     }

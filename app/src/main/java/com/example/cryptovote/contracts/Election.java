@@ -1,6 +1,8 @@
 package com.example.cryptovote.contracts;
 
 import io.reactivex.Flowable;
+
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
@@ -179,6 +181,16 @@ public class Election extends Contract {
                     }
                 }
         );
+    }
+
+    public RemoteCall<String> getCandidateName(BigInteger ID) throws IOException {
+        final Function function = new Function(
+                FUNC_GETCANDIDATENAME,
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256),
+                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
+
+        return executeCallSingleValueReturn(function, String.class)
+
     }
 
     public RemoteCall<List> showWinner() {
