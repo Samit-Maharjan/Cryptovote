@@ -24,7 +24,7 @@ public class viewVoter extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_voter);
 
-        voterAdapter votadapter = new voterAdapter(this, new ArrayList<voterReg>());
+        voterAdapter votadapter = new voterAdapter(this, new ArrayList<voterReg>(), new ArrayList<String>());
         final ListView candidateView = (ListView) findViewById(R.id.voters_view);
 
 

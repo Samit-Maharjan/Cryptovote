@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class add_candidate extends AppCompatActivity implements View.OnClickListener{
     EditText name,candid;
-    int maxId;
+    int m;
     private FirebaseAuth mAuth;
 
     @Override
@@ -62,40 +62,48 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
             candid.requestFocus();
             return;
         }
-        candidate cand = new candidate(candName, ID);
 
-        Blockchain blockchain = new Blockchain();
+        DatabaseReference databaseref = FirebaseDatabase.getInstance().getReference("candidate");
 
-        DatabaseReference databaseref = FirebaseDatabase.getInstance().getReference();
+        databaseref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot s) {
+                if(s.exists()) {
+                    m = (int) s.getChildrenCount();
+                }
+            }
 
-        databaseref.child("candidate").child(ID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        databaseref.orderByChild("id").equalTo(ID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     Toast.makeText(add_candidate.this, "Candidate ID already exists", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    databaseref.child("candidate").addValueEventListener(new ValueEventListener() {
+                    candidate cand = new candidate(candName, ID, m);
+                    FirebaseDatabase.getInstance().getReference().child("candidate")
+                            .child(ID).setValue(cand).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()){
-                                maxId = (int) snapshot.getChildrenCount();
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(add_candidate.this, "Candidate Added Successfully", Toast.LENGTH_SHORT).show();
+                                Intent register_act = new Intent(getApplicationContext(), adminIndex.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("name", candName);
+                                register_act.putExtras(bundle);
+                                startActivity(register_act);
+                            }
+                            else{
+                                Toast.makeText(add_candidate.this, "error", Toast.LENGTH_SHORT).show();
                             }
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
                     });
-                    candidate cand = new candidate(candName, ID, maxId);
-                    databaseref.child("candidate").child(ID).setValue(cand);
-                    Toast.makeText(add_candidate.this, "Candidate Added Successfully", Toast.LENGTH_SHORT).show();
-                    Intent register_act = new Intent(getApplicationContext(), adminIndex.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", candName);
-                    register_act.putExtras(bundle);
-                    startActivity(register_act);
                 }
             }
 
