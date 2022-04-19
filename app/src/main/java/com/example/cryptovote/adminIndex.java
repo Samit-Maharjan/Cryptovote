@@ -1,19 +1,24 @@
 package com.example.cryptovote;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-
-import kotlinx.coroutines.channels.SendElement;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class adminIndex extends AppCompatActivity implements View.OnClickListener{
-
+    private final Blockchain blockchain = new Blockchain();
+    int slow = 0, fast = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +30,17 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.indexStartElection).setOnClickListener(this);
         findViewById(R.id.indexEndElection).setOnClickListener(this);
         findViewById(R.id.adminLogout).setOnClickListener(this);
-
+        findViewById(R.id.indexVerifyAll).setOnClickListener(this);
+        try {
+            blockchain.initAdmin();
+            Bundle bundle = getIntent().getExtras();
+            String candName = bundle.getString("name");
+            if(!candName.equals(""))
+                blockchain.AddCandidate(candName);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -44,23 +59,55 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
                 startActivity(viewvoter);
                 break;
             case R.id.indexStartElection:
-                startElection();
+                StartElection();
                 break;
             case R.id.indexEndElection:
-                endElection();
+                EndElection();
                 break;
             case R.id.adminLogout:
                 adminlogout();
                 break;
+            case R.id.indexVerifyAll:
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists())
+                            fast = (int) snapshot.getChildrenCount();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                if(slow == fast) break;
+                for(int i = slow; i <= fast; ++i){
+                    try {
+                        blockchain.AddVoter(i);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                slow = fast;
+                break;
         }
     }
 
-    private void endElection() {
-
+    private void EndElection(){
+        try {
+            blockchain.endElection();
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void startElection() {
-
+    private void StartElection() {
+        try {
+            blockchain.startElection();
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void adminlogout() {

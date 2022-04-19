@@ -38,12 +38,16 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.addCandBtn:
-                addCandidate();
+                try {
+                    addCandidate();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
 
-    private void addCandidate() {
+    private void addCandidate() throws Exception {
         String candName = name.getText().toString();
         String ID = candid.getText().toString();
 
@@ -57,9 +61,6 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
             candid.requestFocus();
             return;
         }
-
-        Blockchain blockchain = new Blockchain();
-        blockchain.AddCandidate(candName);
 
         candidate cand = new candidate(candName, ID);
 
@@ -75,6 +76,9 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
                     databaseref.child("candidate").child(ID).setValue(cand);
                     Toast.makeText(add_candidate.this, "Candidate Added Successfully", Toast.LENGTH_SHORT).show();
                     Intent register_act = new Intent(getApplicationContext(), adminIndex.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", candName);
+                    register_act.putExtras(bundle);
                     startActivity(register_act);
                 }
             }

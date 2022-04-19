@@ -38,6 +38,7 @@ public class Blockchain {
 
             ethAccounts = web3j.ethAccounts().send();
 
+            // Deploy only once
             String deployedContract = deployContract(web3j, credentials);
 
             election = loadContract(CONTRACT_ADDRESS, web3j, credentials);
