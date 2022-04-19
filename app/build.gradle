@@ -52,11 +52,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-auth'
 
-<<<<<<< HEAD
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
-=======
-    implementation ('org.web3j:core:4.8.7')
->>>>>>> 11d7229b592f1f7a91237bda472f3da09d49ad46
+
 
 
 }

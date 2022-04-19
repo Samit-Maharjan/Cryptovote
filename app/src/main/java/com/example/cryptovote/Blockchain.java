@@ -3,8 +3,9 @@ package com.example.cryptovote;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
-
+/*
 import com.example.cryptovote.contracts.Election;
+
 import org.web3j.protocol.Web3j;
 
 import org.web3j.crypto.Credentials;
@@ -65,4 +66,4 @@ public class Blockchain {
                 GAS_LIMIT
         ).send();
     }
-}
+}*/

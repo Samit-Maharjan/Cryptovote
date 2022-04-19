@@ -71,39 +71,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editConfirmPass"
+            android:id="@+id/editAadhaar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
+            android:hint="Aadhaar Number"
+            android:inputType="number"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/editPass"
-            app:passwordToggleEnabled="true">
+            android:layout_below="@id/editTextLastName">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ConfirmPass"
+                android:id="@+id/Aadhaar"
                 android:layout_width="300dp"
                 android:layout_height="48dp"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/editEmail"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Pass"
-                android:layout_width="300dp"
-                android:layout_height="48dp"
-                android:inputType="textPassword"/>
+                android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -123,22 +104,65 @@
                 android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editAadhaar"
+            android:id="@+id/editDOB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editEmail"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="Date of Birth"
+            android:inputType="date"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/DOB"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/editEmail"
+                android:inputType="date"
+                android:clickable="true"
+                android:focusable="false"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDOB"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Pass"
+                android:layout_width="300dp"
+                android:layout_height="48dp"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editConfirmPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Aadhaar Number"
-            android:inputType="number"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/editTextLastName">
+            android:layout_below="@id/editPass"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Aadhaar"
+                android:id="@+id/ConfirmPass"
                 android:layout_width="300dp"
                 android:layout_height="48dp"
-                android:inputType="textPersonName"/>
+                android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/register"

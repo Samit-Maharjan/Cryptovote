@@ -43,7 +43,6 @@
         android:id="@+id/tableView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_below="@id/imageLayout"
         >
         <TableRow
@@ -101,6 +100,44 @@
                 android:breakStrategy="simple"
                 />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp">
+
+            <TextView
+                android:text="DOB:"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:id="@+id/dobProfile"
+                android:textSize="15dp"
+                android:breakStrategy="simple"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp">
+
+            <TextView
+                android:text="Age:"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                />
+            <TextView
+                android:id="@+id/age"
+                android:textSize="15dp"
+                android:breakStrategy="simple"
+                />
+        </TableRow>
     </TableLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logOut"
@@ -113,7 +150,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/rounded_corner"
         />
 </RelativeLayout>
