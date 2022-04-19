@@ -59,11 +59,12 @@ public class candidateAdapter extends RecyclerView.Adapter<candidateAdapter.MyVi
             candidate c = list.get(getAdapterPosition());
             String s = c.getName();
             String i = c.getID();
-            candidateListener.CandidateClick(s,i);
+            int bId = c.getbID();
+            candidateListener.CandidateClick(s,i,bId);
         }
     }
 
     public interface CandidateListener{
-        void CandidateClick(String s,String i);
+        void CandidateClick(String s,String i,int bID);
     }
 }

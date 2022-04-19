@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class add_candidate extends AppCompatActivity implements View.OnClickListener{
     EditText name,candid;
+    int maxId;
     private FirebaseAuth mAuth;
 
     @Override
@@ -60,8 +61,6 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
 
         Blockchain blockchain = new Blockchain();
 
-        candidate cand = new candidate(candName, ID);
-
         DatabaseReference databaseref = FirebaseDatabase.getInstance().getReference();
 
         databaseref.child("candidate").child(ID).addValueEventListener(new ValueEventListener() {
@@ -71,6 +70,20 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(add_candidate.this, "Candidate ID already exists", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    databaseref.child("candidate").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                maxId = (int) snapshot.getChildrenCount();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    candidate cand = new candidate(candName, ID, maxId);
                     databaseref.child("candidate").child(ID).setValue(cand);
                     Toast.makeText(add_candidate.this, "Candidate Added Successfully", Toast.LENGTH_SHORT).show();
                     Intent register_act = new Intent(getApplicationContext(), adminIndex.class);
