@@ -38,6 +38,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
     private DatePickerDialog datePickerDialog;
     private FirebaseAuth mAuth;
     private int count = 1;
+    int maxId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,17 +160,6 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             e.printStackTrace();
         }
 
-        mAuth.createUserWithEmailAndPassword(emaill,pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            voterReg vot = new voterReg(FirstName, LastName, emaill, adh);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(vot).addOnCompleteListener(new OnCompleteListener<Void>() {
-
-                                                                         }
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         reference.orderByChild("adhaar").equalTo(adh).addValueEventListener(new ValueEventListener() {
@@ -179,12 +169,25 @@ public class register extends AppCompatActivity implements View.OnClickListener{
                     Toast.makeText(register.this, "Aadhaar number already registered", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                maxId = (int) snapshot.getChildrenCount();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     mAuth.createUserWithEmailAndPassword(emaill, pass)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        voterReg vot = new voterReg(FirstName, LastName, emaill, adh, d);
+                                        voterReg vot = new voterReg(FirstName, LastName, emaill, adh, d, maxId);
                                         FirebaseDatabase.getInstance().getReference("Users")
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                                 .setValue(vot).addOnCompleteListener(new OnCompleteListener<Void>() {

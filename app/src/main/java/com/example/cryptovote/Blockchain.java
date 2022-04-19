@@ -1,7 +1,5 @@
 package com.example.cryptovote;
 
-<<<<<<< HEAD
-=======
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;

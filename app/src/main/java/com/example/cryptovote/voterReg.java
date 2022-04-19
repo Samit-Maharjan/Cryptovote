@@ -6,17 +6,19 @@ public class voterReg {
     private String email;
     private String adhaar;
     private String dob;
+    private int userID;
 
     public voterReg(){
 
     }
 
-    public voterReg(String fname, String lname, String email, String adhaar, String dob) {
+    public voterReg(String fname, String lname, String email, String adhaar, String dob, int userID) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.adhaar = adhaar;
         this.dob = dob;
+        this.userID = userID;
     }
 
     public String getFname() {
@@ -57,5 +59,13 @@ public class voterReg {
 
     public void setDob(String dob) {
         this.dob = dob;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 }

@@ -59,7 +59,6 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
         }
 
         Blockchain blockchain = new Blockchain();
-        blockchain.AddCandidate(candName);
 
         candidate cand = new candidate(candName, ID);
 
