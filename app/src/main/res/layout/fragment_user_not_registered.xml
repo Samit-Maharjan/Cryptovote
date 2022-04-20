@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UserNotRegistered">
+    android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/Cryptovote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Could not connect to the Database. Check your connection or wait or wait for some time to get verified..."
-        android:layout_gravity="center"
-        android:textSize="20dp"
-        android:padding="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="CRYPTO-VOTE"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#286090"
         />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/userNotRegisteredMessage"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Cryptovote"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/rounded_boxes"
+        android:padding="10dp"
+        android:text="User is not verified by the election commission.\nPlease wait"
+        android:textColor="@color/white"
+        android:textFontWeight="10"
+        android:textSize="20dp"
+        android:radius="30dp"/>
+
+</RelativeLayout>

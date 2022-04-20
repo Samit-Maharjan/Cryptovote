@@ -49,8 +49,8 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
     }
 
     private void addCandidate() throws Exception {
-        String candName = name.getText().toString();
-        String ID = candid.getText().toString();
+        String candName = name.getText().toString().trim();
+        String ID = candid.getText().toString().trim();
 
         if(candName.isEmpty()){
             name.setError("Please provide candidate name");
@@ -83,7 +83,9 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Toast.makeText(add_candidate.this, "Candidate ID already exists", Toast.LENGTH_SHORT).show();
+                    candid.setError("Candidate ID already exists");
+                    candid.requestFocus();
+                    return;
                 }
                 else{
                     candidate cand = new candidate(candName, ID, m);

@@ -28,6 +28,8 @@ public class index extends AppCompatActivity {
     IndexFragment indexFragment =  new IndexFragment();
     UserNotRegistered userNotRegistered = new UserNotRegistered();
     election_not_started Election_not_started = new election_not_started();
+    election_not_ended Election_not_ended = new election_not_ended();
+    election_ended Election_ended = new election_ended();
     ResultFragment resultFragment = new ResultFragment();
     ProfileFragment profileFragment = new ProfileFragment();
 
@@ -85,7 +87,8 @@ public class index extends AppCompatActivity {
 
                         else if (!blockchain.CheckElectionStart())
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_started).commit();
-
+                        else if(blockchain.getState().equals(("Election Ended!!")))
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_ended).commit();
                         else {
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
                         }
@@ -94,7 +97,19 @@ public class index extends AppCompatActivity {
                     }
                     return true;
                 case R.id.result:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
+                    try {
+                        if(blockchain.getState().equals("Election Started!!")){
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_ended).commit();
+                        }
+                        else if(blockchain.getState().equals(("Election Ended!!"))) {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_ended).commit();
+                        }
+                        else{
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     return true;
 
                 case R.id.profile:
