@@ -86,13 +86,28 @@
             />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/indexVerifyAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFontWeight="10"
+            android:padding="10dp"
+            android:text="Verify All Voters"
+            android:layout_below="@id/indexViewvoter"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="#286090"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/indexStartElection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textFontWeight="10"
             android:padding="10dp"
             android:text="Start Election"
-            android:layout_below="@id/indexViewvoter"
+            android:layout_below="@id/indexVerifyAll"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
@@ -123,7 +138,7 @@
             android:textFontWeight="10"
             android:padding="10dp"
             android:text="Log Out"
-            android:layout_below="@id/indexVerifyAll"
+            android:layout_below="@id/indexEndElection"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
@@ -131,20 +146,6 @@
             android:background="@drawable/rounded_corner"
             />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/indexVerifyAll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textFontWeight="10"
-            android:padding="10dp"
-            android:text="Verify All Voters"
-            android:layout_below="@id/indexEndElection"
-            android:textSize="20dp"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="#286090"
-            />
 
     </RelativeLayout>
 

@@ -24,7 +24,9 @@ public class viewCandidates extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_candidates);
 
-        candidateAdapter2 cad = new candidateAdapter2(this, new ArrayList<candidate>(), new ArrayList<Integer>());
+
+
+        candidateAdapter2 cad = new candidateAdapter2(this, new ArrayList<candidate>());
         final ListView candidateView = (ListView) findViewById(R.id.records_view);
 
 
@@ -44,6 +46,8 @@ public class viewCandidates extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    cad.add(user);
+
                 }
                 candidateView.setAdapter(cad);
                 cad.notifyDataSetChanged();

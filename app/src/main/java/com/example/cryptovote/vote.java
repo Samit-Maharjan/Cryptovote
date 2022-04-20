@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,11 +19,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.math.BigInteger;
 
-public class vote extends AppCompatActivity {
-    Button vote;
+public class vote extends AppCompatActivity  implements View.OnClickListener{
     private FirebaseUser user;
     private DatabaseReference reference;
-    private String candID;
+    int bID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,33 @@ public class vote extends AppCompatActivity {
 
         String candID = bundle.getString("ID");
 
-        int bID = bundle.getInt("bID");
+        bID = bundle.getInt("bID");
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        findViewById(R.id.ConfirmVote).setOnClickListener(this);
+
+        TextView cName = findViewById(R.id.indCandname);
+        cName.setText(candName);
+
+        TextView cID = findViewById(R.id.indCandID);
+        cID.setText("ID: " + candID);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.ConfirmVote:
+                try {
+                    voteConfirm();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    private void voteConfirm() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         String userID = user.getUid();
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -59,13 +83,5 @@ public class vote extends AppCompatActivity {
 
             }
         });
-
-
-        TextView cName = findViewById(R.id.indCandname);
-        cName.setText(candName);
-
-        TextView cID = findViewById(R.id.indCandID);
-        cID.setText("ID: " + candID);
-
     }
 }
