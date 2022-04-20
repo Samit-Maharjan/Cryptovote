@@ -23,8 +23,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class ResultFragment extends Fragment{
@@ -33,15 +39,11 @@ public class ResultFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_result, container, false);
-        int count = 3;
 
         voterResultAdapter cad = new voterResultAdapter(getContext(),new ArrayList<String>(),new ArrayList<Integer>());
         final ListView candidateView = view.findViewById(R.id.records_view);
 
         Blockchain blockchain = new Blockchain();
-
-        // Extract name and votes from Blockchain
-        Blockchain blockchain1 = new Blockchain();
 
         //give me from Database
 
@@ -61,7 +63,7 @@ public class ResultFragment extends Fragment{
         ArrayList<Integer> voteCount = new ArrayList<>();
         ArrayList<String>  candidates = new ArrayList<>();
 
-        for(int i = 0; i < totalCandidates; ++i){
+        for(int i = 1; i <= totalCandidates; ++i){
             try {
                 voteCount.add(blockchain.GetCandidate(i) );
                 candidates.add(blockchain.GetCandidateName(i) );
@@ -70,6 +72,36 @@ public class ResultFragment extends Fragment{
             }
         }
 
+        Map<String, Integer> records = new LinkedHashMap<>();
+        for(int i = 0; i < totalCandidates; ++i)
+            records.put(candidates.get(i), voteCount.get(i));
+
+
+        Set<Map.Entry<String, Integer>> candidateSet = records.entrySet();
+
+        List<Map.Entry<String, Integer>> candidateListEntry =new ArrayList<Map.Entry<String, Integer>>(candidateSet);
+
+        Collections.sort(candidateListEntry,
+                new Comparator<Map.Entry<String, Integer>>() {
+                    @Override
+                    public int compare(Entry<String, Integer> es1,
+                                       Entry<String, Integer> es2) {
+                        return es2.getValue().compareTo(es1.getValue());
+                    }
+                });
+
+        records.clear();
+
+        for(Map.Entry<String, Integer> map : candidateListEntry){
+            records.put(map.getKey(), map.getValue());
+        }
+
+        for(Map.Entry<String, Integer> entry: records.entrySet()){
+            String name = entry.getKey();
+            int votes = entry.getValue();
+            cad.add(name,votes);
+        }
+        /*
         TreeMap<Integer, String> records = new TreeMap<>();
         for(int i = 0; i < totalCandidates; ++i)
             records.put(voteCount.get(i), candidates.get(i));
@@ -79,6 +111,7 @@ public class ResultFragment extends Fragment{
             int votes = entry.getKey();
             cad.add(name,votes);
         }
+         */
         candidateView.setAdapter(cad);
         cad.notifyDataSetChanged();
         return view;
