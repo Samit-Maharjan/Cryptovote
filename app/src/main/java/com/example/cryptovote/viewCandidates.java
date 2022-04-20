@@ -39,15 +39,7 @@ public class viewCandidates extends AppCompatActivity {
                 for(DataSnapshot d: snapshot.getChildren()){
                     candidate user = d.getValue(candidate.class);
 
-                    try {
-                        // only display name
-                        // DECENTRALIZATION - EITHER EVERYONE CAN SEE IT OR ELSE NOBODY CAN
-                        cad.add(user, 0);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                     cad.add(user);
-
                 }
                 candidateView.setAdapter(cad);
                 cad.notifyDataSetChanged();
