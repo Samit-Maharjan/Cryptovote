@@ -85,6 +85,7 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
                     }
                 }
                 slow = fast;
+                Toast.makeText(this, "Verified all voters", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -92,6 +93,7 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
     private void EndElection(){
         try {
             blockchain.endElection();
+            Toast.makeText(this, "Election Ended", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "Election has not started or already ended", Toast.LENGTH_SHORT).show();
         }
@@ -100,6 +102,7 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
     private void StartElection() {
         try {
             blockchain.startElection();
+            Toast.makeText(this, "Election Started", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Toast.makeText(this, "Election has already started", Toast.LENGTH_SHORT).show();
         }
