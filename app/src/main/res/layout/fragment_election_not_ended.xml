@@ -29,7 +29,7 @@
         android:layout_marginTop="200dp"
         android:background="@drawable/rounded_boxes"
         android:padding="10dp"
-        android:text="Election has not started yet. Please wait till election to start to start voting"
+        android:text="Election has not ended yet. Please wait till election to end to view result"
         android:textColor="@color/white"
         android:textFontWeight="10"
         android:textSize="20dp"

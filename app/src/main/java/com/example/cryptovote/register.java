@@ -77,12 +77,12 @@ public class register extends AppCompatActivity implements View.OnClickListener{
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void registerUser(){
-        String FirstName = fname.getText().toString();
-        String LastName = lname.getText().toString();
-        String emaill = email.getText().toString();
-        String pass = password.getText().toString();
-        String Confpass = cpass.getText().toString();
-        String adh = adhaar.getText().toString();
+        String FirstName = fname.getText().toString().trim();
+        String LastName = lname.getText().toString().trim();
+        String emaill = email.getText().toString().trim();
+        String pass = password.getText().toString().trim();
+        String Confpass = cpass.getText().toString().trim();
+        String adh = adhaar.getText().toString().trim();
         String d = date.getText().toString();
 
         String year[] = d.split("/",0);
@@ -106,8 +106,18 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             fname.requestFocus();
             return;
         }
+        if(!FirstName.matches("^[a-zA-Z]$")){
+            fname.setError("Please provide valid first name");
+            fname.requestFocus();
+            return;
+        }
         if(LastName.isEmpty()){
             lname.setError("Please provide last name");
+            lname.requestFocus();
+            return;
+        }
+        if(!LastName.matches("^[a-zA-Z]$")){
+            lname.setError("Please provide valid last name");
             lname.requestFocus();
             return;
         }
@@ -160,7 +170,9 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    Toast.makeText(register.this, "Aadhaar number already registered", Toast.LENGTH_SHORT).show();
+                    adhaar.setError("Aadhaar number already registered");
+                    adhaar.requestFocus();
+                    return;
                 }
                 else{
                     reference.addValueEventListener(new ValueEventListener() {
