@@ -104,7 +104,10 @@ public class index extends AppCompatActivity {
                     return true;
                 case R.id.result:
                     try {
-                        if(blockchain.getState().equals("Election Started!!")){
+                        if (!blockchain.CheckRegistered(id)) {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userNotRegistered).commit();
+                        }
+                        else if(blockchain.getState().equals("Election Started!!")){
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_ended).commit();
                         }
                         else{
