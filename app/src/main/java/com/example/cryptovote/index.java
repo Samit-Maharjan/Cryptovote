@@ -76,7 +76,8 @@ public class index extends AppCompatActivity {
 
             else if (!blockchain.CheckElectionStart())
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_started).commit();
-
+            else if(blockchain.getState().equals(("Election Ended!!")))
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_ended).commit();
             else
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
         }
@@ -105,9 +106,6 @@ public class index extends AppCompatActivity {
                     try {
                         if(blockchain.getState().equals("Election Started!!")){
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_ended).commit();
-                        }
-                        else if(blockchain.getState().equals(("Election Ended!!"))) {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_ended).commit();
                         }
                         else{
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();

@@ -199,7 +199,7 @@ public class Election extends Contract {
 
     public RemoteCall<List> showResults(BigInteger _ID) {
         final Function function = new Function(
-                FUNC_GETVOTER,
+                FUNC_SHOWRESULTS,
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(_ID)),
                 Arrays.<TypeReference<?>>asList(new TypeReference<StaticArray2<Uint256>>() { }));
         return new RemoteCall<List>(

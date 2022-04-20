@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blockchain {
-    String PRIVATE_KEY = "8f45020e6098b41aed45e386406ca532158409aea179a64d99f7d7be95b25074";
-    String CONTRACT_ADDRESS = "0x3889d21af005f0329ad4c5a8270651f1473ae8ec";
+    String PRIVATE_KEY = "d802d9012e8d0f982083f18f05fb711eaba1b1fd9a6fda3ec37afba553a60d27";
+    String CONTRACT_ADDRESS = "0x476173855f1c9ddbd9650a92abfdfe0175b9d8b3";
 
     private final static int adminID = 0;
     private String adminAddress;
@@ -40,12 +40,12 @@ public class Blockchain {
 
             Credentials credentials = getCredentialsFromPrivateKey();
 
-            String addresses = deployContract(web3j, credentials);
-            System.out.println(addresses);
+            // String addresses = deployContract(web3j, credentials);
+            // System.out.println(addresses);
 
             ethAccounts = web3j.ethAccounts().sendAsync().get();
 
-            // election = loadContract(CONTRACT_ADDRESS, web3j, credentials);
+            election = loadContract(CONTRACT_ADDRESS, web3j, credentials);
 
             adminAddress = ethAccounts.getAccounts().get(adminID);
         }
@@ -82,7 +82,7 @@ public class Blockchain {
 
     public int GetCandidate(int ID) throws Exception{
         List results = election.showResults(BigInteger.valueOf(ID) ).send();
-        return (int) results.get(1);
+        return ( (BigInteger) results.get(1) ).intValue();
     }
 
     public String GetCandidateName(int ID) throws Exception{

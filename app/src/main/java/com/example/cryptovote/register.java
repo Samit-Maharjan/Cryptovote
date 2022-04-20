@@ -106,7 +106,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             fname.requestFocus();
             return;
         }
-        if(!FirstName.matches("^[a-zA-Z]$")){
+        if(!FirstName.matches("^[a-zA-Z]{0,20}$")){
             fname.setError("Please provide valid first name");
             fname.requestFocus();
             return;
@@ -116,7 +116,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             lname.requestFocus();
             return;
         }
-        if(!LastName.matches("^[a-zA-Z]$")){
+        if(!LastName.matches("^[a-zA-Z]{0,20}$")){
             lname.setError("Please provide valid last name");
             lname.requestFocus();
             return;

@@ -71,7 +71,7 @@ public class vote extends AppCompatActivity  implements View.OnClickListener{
                     int UID = userProfile.getUserID();
                     Blockchain blockchain = new Blockchain();
                     try {
-                        blockchain.voteCandidate(BigInteger.valueOf(bID), UID);
+                        blockchain.voteCandidate(BigInteger.valueOf(bID + 1), UID);
                     } catch (Exception e) {
                         Toast.makeText(vote.this, "The User has already casted their Vote!!", Toast.LENGTH_SHORT).show();
                     }
