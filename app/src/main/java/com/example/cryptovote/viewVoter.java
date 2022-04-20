@@ -37,10 +37,9 @@ public class viewVoter extends AppCompatActivity {
                 for(DataSnapshot d: snapshot.getChildren()){
                     voterReg user = d.getValue(voterReg.class);
 
-                    String address = blockchain.getAddress(user.getUserID());
                     String voted = null;
                     try {
-                        voted = (blockchain.checkVoted(address) ? "Yes" : "No");
+                        voted = (blockchain.checkVoted(user.getUserID()) ? "Yes" : "No");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

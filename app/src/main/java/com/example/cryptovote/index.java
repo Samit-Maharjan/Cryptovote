@@ -64,9 +64,8 @@ public class index extends AppCompatActivity {
             }
         });
 
-        String address = blockchain.getAddress(id);
         try {
-            System.out.println(blockchain.checkVoted(address));
+            System.out.println(blockchain.checkVoted(id));
         } catch (Exception e) {
             e.printStackTrace();
         }

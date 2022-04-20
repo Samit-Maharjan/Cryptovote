@@ -185,7 +185,6 @@ contract Election{
     function showResults(uint256 _ID)
         public
         view
-        checkIfEnded
         checkIfCandidateValid(_ID)
         returns (
             uint256 id,

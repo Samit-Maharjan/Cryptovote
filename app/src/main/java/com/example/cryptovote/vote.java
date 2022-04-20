@@ -3,6 +3,7 @@ package com.example.cryptovote;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +44,7 @@ public class vote extends AppCompatActivity  implements View.OnClickListener{
 
         TextView cID = findViewById(R.id.indCandID);
         cID.setText("ID: " + candID);
+        Toast.makeText(vote.this, String.valueOf(bID), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -52,6 +54,8 @@ public class vote extends AppCompatActivity  implements View.OnClickListener{
             case R.id.ConfirmVote:
                 try {
                     voteConfirm();
+                    Intent register_act = new Intent(getApplicationContext(), index.class);
+                    startActivity(register_act);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -71,7 +75,7 @@ public class vote extends AppCompatActivity  implements View.OnClickListener{
                     int UID = userProfile.getUserID();
                     Blockchain blockchain = new Blockchain();
                     try {
-                        blockchain.voteCandidate(BigInteger.valueOf(bID + 1), UID);
+                        blockchain.voteCandidate(bID + 1, UID);
                     } catch (Exception e) {
                         Toast.makeText(vote.this, "The User has already casted their Vote!!", Toast.LENGTH_SHORT).show();
                     }

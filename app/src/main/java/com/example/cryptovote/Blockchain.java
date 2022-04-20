@@ -5,6 +5,7 @@ import com.example.cryptovote.contracts.Election;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.crypto.Credentials;
+import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blockchain {
-    String PRIVATE_KEY = "d802d9012e8d0f982083f18f05fb711eaba1b1fd9a6fda3ec37afba553a60d27";
-    String CONTRACT_ADDRESS = "0x476173855f1c9ddbd9650a92abfdfe0175b9d8b3";
+    String PRIVATE_KEY = "7209ea46df3421a3e4851391f2cb337aac1d4b836fdb51ad4220001fc3a2f6c7";
+    String CONTRACT_ADDRESS = "0xd5a042c660a634581eb37670b732b6736935b274";
 
     private final static int adminID = 0;
     private String adminAddress;
@@ -29,19 +30,20 @@ public class Blockchain {
     private final static BigInteger GAS_LIMIT = BigInteger.valueOf(6721975L);
     private final static BigInteger GAS_PRICE = BigInteger.valueOf(20000000000L);
 
+
     Blockchain(){
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            //Web3j web3j = Web3j.build(new HttpService("http://localhost:7545"));
+  //          Web3j web3j = Web3j.build(new HttpService("http://localhost:7545"));
 
-            Web3j web3j = Web3j.build(new HttpService("http://172.17.12.248:7545"));
+            Web3j web3j = Web3j.build(new HttpService("http://172.20.10.9:7545"));
 
             Credentials credentials = getCredentialsFromPrivateKey();
 
-            // String addresses = deployContract(web3j, credentials);
-            // System.out.println(addresses);
+//            String addresses = deployContract(web3j, credentials);
+//            System.out.println(addresses);
 
             ethAccounts = web3j.ethAccounts().sendAsync().get();
 
@@ -73,7 +75,7 @@ public class Blockchain {
     }
 
     public void AddVoter(int ID) throws Exception {
-        election.addVoter(ethAccounts.getAccounts().get(ID + 1) ).send();
+        election.addVoter(getAddress(ID) ).send();
     }
 
     public void AddCandidate(String name) throws Exception {
@@ -99,8 +101,8 @@ public class Blockchain {
     public boolean CheckRegistered(int ID) throws Exception{
         return election.checkRegistered(getAddress(ID)).send();
     }
-    public boolean checkVoted(String address) throws Exception{
-        return election.hasVoted(address).send();
+    public boolean checkVoted(int ID) throws Exception{
+        return election.hasVoted(getAddress(ID) ).send();
     }
 
     public void VerifyVoter(int ID) throws Exception{
@@ -119,12 +121,12 @@ public class Blockchain {
         election.endElection(adminAddress).send();
     }
 
-    public void voteCandidate(BigInteger candidateID, int userID) throws Exception {
-        election.vote(candidateID, ethAccounts.getAccounts().get(userID) ).send();
+    public void voteCandidate(int candidateID, int userID) throws Exception {
+        election.vote(BigInteger.valueOf(candidateID), getAddress(userID) ).send();
     }
 
-    public int voterInfo(BigInteger userID) throws Exception{
-        List results = (List) election.getVoter(userID, adminAddress).send();
+    public int voterInfo(int userID) throws Exception{
+        List results = (List) election.getVoter(BigInteger.valueOf(userID + 1), adminAddress).send();
         return ((BigInteger)results.get(1)).intValue();
     }
 
