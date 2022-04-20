@@ -70,7 +70,7 @@ public class Blockchain {
     }
 
     public void AddVoter(int ID) throws Exception {
-        election.addVoter(ethAccounts.getAccounts().get(ID + 1), adminAddress).send();
+        election.addVoter(ethAccounts.getAccounts().get(ID + 1) ).send();
     }
 
     public void AddCandidate(String name) throws Exception {
@@ -90,16 +90,19 @@ public class Blockchain {
         return election.checkState().send();
     }
 
+    public boolean CheckElectionStart() throws Exception{
+        return election.checkElectionStart().send();
+    }
+    public boolean CheckRegistered(int ID) throws Exception{
+        return election.checkRegistered(getAddress(ID)).send();
+    }
+
     public void initAdmin() throws Exception {
         election.setAdmin(adminAddress).send();
     }
 
     public void startElection() throws Exception {
         election.startElection(adminAddress).send();
-    }
-
-    public void restartElection() throws Exception{
-        election.restartElection(adminAddress).send();
     }
 
     public void endElection() throws Exception {
@@ -113,11 +116,6 @@ public class Blockchain {
     public int voterInfo(BigInteger userID) throws Exception{
         List results = (List) election.getVoter(userID, adminAddress);
         return (int) results.get(1);
-    }
-
-    public ArrayList getWinner() throws Exception{
-        List results = election.showWinner().send();
-        return new ArrayList<>(results);
     }
 
     public String getState() throws Exception{

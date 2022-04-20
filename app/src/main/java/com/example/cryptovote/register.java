@@ -152,6 +152,7 @@ public class register extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
+        Blockchain blockchain = new Blockchain();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -167,6 +168,8 @@ public class register extends AppCompatActivity implements View.OnClickListener{
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.exists()){
                                 maxId = (int) snapshot.getChildrenCount();
+
+                                blockchain.AddVoter(maxId);
                             }
                         }
 

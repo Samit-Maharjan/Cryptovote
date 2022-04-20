@@ -133,9 +133,8 @@ contract Election{
         voteCount[candidateCount] = 0;
     }
 
-    function addVoter(address _voter, address owner)
+    function addVoter(address _voter)
         public
-        checkAdmin(owner)
         checkNotAdmin(_voter)
         checkIfnotStarted
         checkNotRegistered(_voter)
@@ -143,8 +142,17 @@ contract Election{
         voterCount++;
         voterID[voterCount] = _voter;
         voters[_voter].weight = 1;
-        voters[_voter].isRegistered = true;
+        voters[_voter].isRegistered = false;
     }
+    
+    function verifyVoter(address _voter, address owner)
+        public
+        checkAdmin(owner)
+        checkIfnotStarted
+        checkNotRegistered(_voter)
+        {
+           voters[_voter].isRegistered = true; 
+        }
 
     function setAdmin(address owner) 
         public
@@ -226,7 +234,6 @@ contract Election{
                )
         {
             return voters[_voter].isRegistered;
-
     }
 
     function hasVoted(address _voter) view public

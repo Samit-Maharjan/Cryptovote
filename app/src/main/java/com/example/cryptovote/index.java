@@ -31,35 +31,47 @@ public class index extends AppCompatActivity {
         setContentView(R.layout.activity_index);
         bottom_nav = findViewById(R.id.bottom_navigation);
         Blockchain blockchain = new Blockchain();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
-
         int id = ;// To-do
         String address = blockchain.getAddress(id);
-        bottom_nav.setOnItemSelectedListener(item -> {
-
-            if(!blockchain.checkRegistered(id) )
+        try {
+            if (!blockchain.CheckRegistered(id))
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userNotRegistered).commit();
 
-            else if(!blockchain.checkElectionStart())
+            else if (!blockchain.CheckElectionStart())
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_started).commit();
 
-            else {
-                switch (item.getItemId()) {
-                    case R.id.contests:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
-                        return true;
+            else
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        bottom_nav.setOnItemSelectedListener(item -> {
+                try {
+                    if (!blockchain.CheckRegistered(id))
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userNotRegistered).commit();
 
-                    case R.id.result:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
-                        return true;
+                    else if (!blockchain.CheckElectionStart())
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_started).commit();
 
-                    case R.id.profile:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
-                        return true;
+                    else {
+                        switch (item.getItemId()) {
+                            case R.id.contests:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
+                                return true;
+
+                            case R.id.result:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
+                                return true;
+
+                            case R.id.profile:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+                                return true;
+                        }
+                    }
+                }catch(Exception e){
+                    System.out.println(e);
                 }
-            }
-            return false;
-        });
-
-    }
+            });
+        }
 }

@@ -84,7 +84,7 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
                 if(slow == fast) break;
                 for(int i = slow; i <= fast; ++i){
                     try {
-                        blockchain.AddVoter(i);
+                        blockchain.VerifyVoter(i);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
