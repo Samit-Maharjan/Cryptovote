@@ -7,10 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.web3j.protocol.core.methods.response.EthBlock;
 
@@ -24,6 +31,9 @@ public class index extends AppCompatActivity {
     ResultFragment resultFragment = new ResultFragment();
     ProfileFragment profileFragment = new ProfileFragment();
 
+    private DatabaseReference reference;
+    int id;
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +41,27 @@ public class index extends AppCompatActivity {
         setContentView(R.layout.activity_index);
         bottom_nav = findViewById(R.id.bottom_navigation);
         Blockchain blockchain = new Blockchain();
-        int id = ;// To-do
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        String userID = user.getUid();
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                voterReg userProfile = snapshot.getValue(voterReg.class);
+                if(userProfile != null){
+                    id = userProfile.getUserID();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         String address = blockchain.getAddress(id);
         try {
             if (!blockchain.CheckRegistered(id))
@@ -72,6 +102,7 @@ public class index extends AppCompatActivity {
                 }catch(Exception e){
                     System.out.println(e);
                 }
+                return false;
             });
         }
 }
