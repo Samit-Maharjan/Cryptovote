@@ -64,6 +64,11 @@ public class index extends AppCompatActivity {
 
         String address = blockchain.getAddress(id);
         try {
+            System.out.println(blockchain.checkVoted(address));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
             if (!blockchain.CheckRegistered(id))
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userNotRegistered).commit();
 

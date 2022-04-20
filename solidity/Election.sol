@@ -143,13 +143,13 @@ contract Election{
         voterID[voterCount] = _voter;
         voters[_voter].weight = 1;
         voters[_voter].isRegistered = false;
+        voters[_voter].hasVoted = false;
     }
     
     function verifyVoter(address _voter, address owner)
         public
         checkAdmin(owner)
         checkIfnotStarted
-        checkNotRegistered(_voter)
         {
            voters[_voter].isRegistered = true; 
         }
@@ -172,6 +172,7 @@ contract Election{
 
     function vote(uint256 _ID, address owner)
         public
+        checkIfStarted
         checkIfVoterValid(owner)
         checkIfCandidateValid(_ID)
     {

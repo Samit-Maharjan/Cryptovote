@@ -1,14 +1,10 @@
 package com.example.cryptovote;
-
-import android.os.Build;
 import android.os.StrictMode;
 
-import androidx.annotation.RequiresApi;
 import com.example.cryptovote.contracts.Election;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.crypto.Credentials;
-import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -22,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blockchain {
-    String PRIVATE_KEY = "24aa2125d95f386066ce651d660a00b96c3e95f979445b1937ca255c6d4215a6";
-    String CONTRACT_ADDRESS = "0x19bf69051bbcf274b767883f2420533a3cf7cdf3";
+    String PRIVATE_KEY = "8f45020e6098b41aed45e386406ca532158409aea179a64d99f7d7be95b25074";
+    String CONTRACT_ADDRESS = "0x3889d21af005f0329ad4c5a8270651f1473ae8ec";
 
     private final static int adminID = 0;
     private String adminAddress;
@@ -33,17 +29,10 @@ public class Blockchain {
     private final static BigInteger GAS_LIMIT = BigInteger.valueOf(6721975L);
     private final static BigInteger GAS_PRICE = BigInteger.valueOf(20000000000L);
 
-    public static void main(String args[]) throws Exception {
-        Blockchain blockchain = new Blockchain();
-        //int votes = blockchain.GetCandidate(0);
-        String name = blockchain.GetCandidateName(1);
-        System.out.println("Name: " + name);
-       // System.out.println("Votes: " + votes);
-    }
     Blockchain(){
         try {
- //           StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-///            StrictMode.setThreadPolicy(policy);
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
 
             //Web3j web3j = Web3j.build(new HttpService("http://localhost:7545"));
 
@@ -51,12 +40,12 @@ public class Blockchain {
 
             Credentials credentials = getCredentialsFromPrivateKey();
 
-            //String addresses = deployContract(web3j, credentials);
-            //System.out.println(addresses);
+            String addresses = deployContract(web3j, credentials);
+            System.out.println(addresses);
 
             ethAccounts = web3j.ethAccounts().sendAsync().get();
 
-            election = loadContract(CONTRACT_ADDRESS, web3j, credentials);
+            // election = loadContract(CONTRACT_ADDRESS, web3j, credentials);
 
             adminAddress = ethAccounts.getAccounts().get(adminID);
         }
@@ -115,7 +104,7 @@ public class Blockchain {
     }
 
     public void VerifyVoter(int ID) throws Exception{
-        election.verifyVoter(getAddress(ID +1), adminAddress);
+        election.verifyVoter(getAddress(ID), adminAddress).send();
     }
 
     public void initAdmin() throws Exception {
@@ -135,8 +124,8 @@ public class Blockchain {
     }
 
     public int voterInfo(BigInteger userID) throws Exception{
-        List results = (List) election.getVoter(userID, adminAddress);
-        return (int) results.get(1);
+        List results = (List) election.getVoter(userID, adminAddress).send();
+        return ((BigInteger)results.get(1)).intValue();
     }
 
     public String getState() throws Exception{
