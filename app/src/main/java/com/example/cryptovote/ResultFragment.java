@@ -40,67 +40,67 @@ public class ResultFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_result, container, false);
 
-        voterResultAdapter cad = new voterResultAdapter(getContext(),new ArrayList<String>(),new ArrayList<Integer>());
-        final ListView candidateView = view.findViewById(R.id.records_view);
+        try {
+            voterResultAdapter cad = new voterResultAdapter(getContext(), new ArrayList<String>(), new ArrayList<Integer>());
+            final ListView candidateView = view.findViewById(R.id.records_view);
 
-        Blockchain blockchain = new Blockchain();
+            Blockchain blockchain = new Blockchain();
 
-        //give me from Database
+            //give me from Database
 
-        FirebaseDatabase.getInstance().getReference("candidate").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    totalCandidates = (int) snapshot.getChildrenCount();
+            FirebaseDatabase.getInstance().getReference("candidate").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        totalCandidates = (int) snapshot.getChildrenCount();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            ArrayList<Integer> voteCount = new ArrayList<>();
+            ArrayList<String> candidates = new ArrayList<>();
+
+            for (int i = 1; i <= totalCandidates; ++i) {
+                try {
+                    voteCount.add(blockchain.GetCandidate(i));
+                    candidates.add(blockchain.GetCandidateName(i));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            Map<String, Integer> records = new LinkedHashMap<>();
+            for (int i = 0; i < totalCandidates; ++i)
+                records.put(candidates.get(i), voteCount.get(i));
 
+            Set<Map.Entry<String, Integer>> candidateSet = records.entrySet();
+
+            List<Map.Entry<String, Integer>> candidateListEntry = new ArrayList<Map.Entry<String, Integer>>(candidateSet);
+
+            Collections.sort(candidateListEntry,
+                    new Comparator<Map.Entry<String, Integer>>() {
+                        @Override
+                        public int compare(Entry<String, Integer> es1,
+                                           Entry<String, Integer> es2) {
+                            return es2.getValue().compareTo(es1.getValue());
+                        }
+                    });
+
+            records.clear();
+
+            for (Map.Entry<String, Integer> map : candidateListEntry) {
+                records.put(map.getKey(), map.getValue());
             }
-        });
-        ArrayList<Integer> voteCount = new ArrayList<>();
-        ArrayList<String>  candidates = new ArrayList<>();
 
-        for(int i = 1; i <= totalCandidates; ++i){
-            try {
-                voteCount.add(blockchain.GetCandidate(i) );
-                candidates.add(blockchain.GetCandidateName(i) );
-            } catch (Exception e) {
-                e.printStackTrace();
+            for (Map.Entry<String, Integer> entry : records.entrySet()) {
+                String name = entry.getKey();
+                int votes = entry.getValue();
+                cad.add(name, votes);
             }
-        }
-
-        Map<String, Integer> records = new LinkedHashMap<>();
-        for(int i = 0; i < totalCandidates; ++i)
-            records.put(candidates.get(i), voteCount.get(i));
-
-
-        Set<Map.Entry<String, Integer>> candidateSet = records.entrySet();
-
-        List<Map.Entry<String, Integer>> candidateListEntry =new ArrayList<Map.Entry<String, Integer>>(candidateSet);
-
-        Collections.sort(candidateListEntry,
-                new Comparator<Map.Entry<String, Integer>>() {
-                    @Override
-                    public int compare(Entry<String, Integer> es1,
-                                       Entry<String, Integer> es2) {
-                        return es2.getValue().compareTo(es1.getValue());
-                    }
-                });
-
-        records.clear();
-
-        for(Map.Entry<String, Integer> map : candidateListEntry){
-            records.put(map.getKey(), map.getValue());
-        }
-
-        for(Map.Entry<String, Integer> entry: records.entrySet()){
-            String name = entry.getKey();
-            int votes = entry.getValue();
-            cad.add(name,votes);
-        }
         /*
         TreeMap<Integer, String> records = new TreeMap<>();
         for(int i = 0; i < totalCandidates; ++i)
@@ -112,8 +112,12 @@ public class ResultFragment extends Fragment{
             cad.add(name,votes);
         }
          */
-        candidateView.setAdapter(cad);
-        cad.notifyDataSetChanged();
+            candidateView.setAdapter(cad);
+            cad.notifyDataSetChanged();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
         return view;
     }
 }
