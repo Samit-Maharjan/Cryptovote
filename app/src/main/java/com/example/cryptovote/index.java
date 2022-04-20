@@ -77,31 +77,30 @@ public class index extends AppCompatActivity {
             System.out.println(e);
         }
         bottom_nav.setOnItemSelectedListener(item -> {
-                try {
-                    if (!blockchain.CheckRegistered(id))
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userNotRegistered).commit();
+            switch (item.getItemId()) {
+                case R.id.contests:
+                    try {
+                        if (!blockchain.CheckRegistered(id))
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, userNotRegistered).commit();
 
-                    else if (!blockchain.CheckElectionStart())
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_started).commit();
+                        else if (!blockchain.CheckElectionStart())
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Election_not_started).commit();
 
-                    else {
-                        switch (item.getItemId()) {
-                            case R.id.contests:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
-                                return true;
-
-                            case R.id.result:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
-                                return true;
-
-                            case R.id.profile:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
-                                return true;
+                        else {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, indexFragment).commit();
                         }
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
                     }
-                }catch(Exception e){
-                    System.out.println(e);
-                }
+                    return true;
+                case R.id.result:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, resultFragment).commit();
+                    return true;
+
+                case R.id.profile:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+                    return true;
+            }
                 return false;
             });
         }
