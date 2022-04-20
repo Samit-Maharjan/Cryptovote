@@ -38,7 +38,12 @@ public class viewVoter extends AppCompatActivity {
                     voterReg user = d.getValue(voterReg.class);
 
                     String address = blockchain.getAddress(user.getUserID());
-                    String voted = (blockchain.checkVoted(address) ? "Yes" : "No");
+                    String voted = null;
+                    try {
+                        voted = (blockchain.checkVoted(address) ? "Yes" : "No");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     votadapter.add(user, voted);
                 }
                 candidateView.setAdapter(votadapter);

@@ -96,6 +96,13 @@ public class Blockchain {
     public boolean CheckRegistered(int ID) throws Exception{
         return election.checkRegistered(getAddress(ID)).send();
     }
+    public boolean checkVoted(String address) throws Exception{
+        return election.hasVoted(address).send();
+    }
+
+    public void VerifyVoter(int ID) throws Exception{
+        election.verifyVoter(getAddress(ID + 1), adminAddress);
+    }
 
     public void initAdmin() throws Exception {
         election.setAdmin(adminAddress).send();

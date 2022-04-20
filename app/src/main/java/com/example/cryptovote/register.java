@@ -169,7 +169,11 @@ public class register extends AppCompatActivity implements View.OnClickListener{
                             if(snapshot.exists()){
                                 maxId = (int) snapshot.getChildrenCount();
 
-                                blockchain.AddVoter(maxId);
+                                try {
+                                    blockchain.AddVoter(maxId);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
 
