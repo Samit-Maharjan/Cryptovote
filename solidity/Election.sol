@@ -197,7 +197,6 @@ contract Election{
     function getCandidateName(uint256 _ID)
         public
         view
-        checkIfEnded
         checkIfCandidateValid(_ID)
         returns(
             string memory name

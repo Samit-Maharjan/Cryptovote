@@ -38,8 +38,9 @@ public class viewCandidates extends AppCompatActivity {
                     candidate user = d.getValue(candidate.class);
 
                     try {
-                        cad.add(user, blockchain.GetCandidate(user.getbID())
-                        );
+                        // only display name
+                        // DECENTRALIZATION - EITHER EVERYONE CAN SEE IT OR ELSE NOBODY CAN
+                        cad.add(user, 0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

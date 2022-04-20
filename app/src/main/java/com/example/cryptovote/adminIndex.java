@@ -33,10 +33,6 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.indexVerifyAll).setOnClickListener(this);
         try {
             blockchain.initAdmin();
-            Bundle bundle = getIntent().getExtras();
-            String candName = bundle.getString("name");
-            if(!candName.equals(""))
-                blockchain.AddCandidate(candName);
         }
         catch(Exception e){
             e.printStackTrace();

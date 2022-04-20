@@ -26,12 +26,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class IndexFragment extends Fragment implements candidateAdapter.CandidateListener {
+public class IndexFragment extends Fragment implements candidateAdapter2.CandidateListener {
     RecyclerView recyclerView;
     DatabaseReference database;
     private FirebaseUser user;
     String userID;
-    candidateAdapter myAdapter;
+    candidateAdapter2 myAdapter;
     ArrayList<candidate> list;
 
     @Override

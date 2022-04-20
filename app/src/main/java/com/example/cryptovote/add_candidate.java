@@ -87,11 +87,17 @@ public class add_candidate extends AppCompatActivity implements View.OnClickList
                 }
                 else{
                     candidate cand = new candidate(candName, ID, m);
+                    Blockchain blockchain = new Blockchain();
                     FirebaseDatabase.getInstance().getReference().child("candidate")
                             .child(ID).setValue(cand).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
+                                try {
+                                    blockchain.AddCandidate(candName);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 Toast.makeText(add_candidate.this, "Candidate Added Successfully", Toast.LENGTH_SHORT).show();
                                 Intent register_act = new Intent(getApplicationContext(), adminIndex.class);
                                 Bundle bundle = new Bundle();
