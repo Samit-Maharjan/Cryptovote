@@ -50,11 +50,13 @@ public class ProfileFragment extends Fragment{
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
 
+
         TextView name = view.findViewById(R.id.userName);
         TextView aadhaar = view.findViewById(R.id.aadhaarNumber);
         TextView email = view.findViewById(R.id.email);
         TextView dob = view.findViewById(R.id.dobProfile);
         TextView age = view.findViewById(R.id.age);
+        TextView registered = view.findViewById(R.id.Registered);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -66,6 +68,13 @@ public class ProfileFragment extends Fragment{
                     aadhaar.setText(userProfile.getAdhaar());
                     email.setText(userProfile.getEmail());
                     dob.setText(userProfile.getDob());
+                    int UID = userProfile.getUserID();
+                    Blockchain blockchain = new Blockchain();
+                    try {
+                        registered.setText((blockchain.CheckRegistered(UID) ? "Yes" : "No"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     String temp = userProfile.getDob();
                     String year[] = temp.split("/",0);

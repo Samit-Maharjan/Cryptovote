@@ -65,7 +65,7 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
                 break;
             case R.id.indexVerifyAll:
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
-                reference.addValueEventListener(new ValueEventListener() {
+               /* reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists())
@@ -76,15 +76,27 @@ public class adminIndex extends AppCompatActivity implements View.OnClickListene
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-                });
-                for(int i = slow; i <= fast; ++i){
+                });*/
+                try {
+                    fast = blockchain.countVoters();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                for(int i = 0; i <= fast; ++i){
                     try {
                         blockchain.VerifyVoter(i);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                slow = fast;
+                int count = 0;
+                try {
+                    count = blockchain.countVoters();
+                    for(int i = 0; i <= count; ++i)
+                        blockchain.setVoterWeight(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(this, "Verified all voters", Toast.LENGTH_SHORT).show();
                 break;
         }

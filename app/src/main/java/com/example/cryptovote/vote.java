@@ -44,7 +44,6 @@ public class vote extends AppCompatActivity  implements View.OnClickListener{
 
         TextView cID = findViewById(R.id.indCandID);
         cID.setText("ID: " + candID);
-        Toast.makeText(vote.this, String.valueOf(bID), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -77,6 +76,7 @@ public class vote extends AppCompatActivity  implements View.OnClickListener{
                     try {
                         blockchain.voteCandidate(bID + 1, UID);
                     } catch (Exception e) {
+                        e.printStackTrace();
                         Toast.makeText(vote.this, "The User has already casted their Vote!!", Toast.LENGTH_SHORT).show();
                     }
                 }

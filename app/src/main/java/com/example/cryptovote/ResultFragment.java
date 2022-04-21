@@ -42,13 +42,13 @@ public class ResultFragment extends Fragment{
 
         try {
             voterResultAdapter cad = new voterResultAdapter(getContext(), new ArrayList<String>(), new ArrayList<Integer>());
-            final ListView candidateView = view.findViewById(R.id.records_view);
+            final ListView candidateView = view.findViewById(R.id.results_view);
 
             Blockchain blockchain = new Blockchain();
 
             //give me from Database
 
-            FirebaseDatabase.getInstance().getReference("candidate").addValueEventListener(new ValueEventListener() {
+    /*       FirebaseDatabase.getInstance().getReference("candidate").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
@@ -61,12 +61,16 @@ public class ResultFragment extends Fragment{
 
                 }
             });
+
+     */
+            totalCandidates = blockchain.countCandidates();
             ArrayList<Integer> voteCount = new ArrayList<>();
             ArrayList<String> candidates = new ArrayList<>();
-
+            System.out.println(totalCandidates);
             for (int i = 1; i <= totalCandidates; ++i) {
                 try {
                     voteCount.add(blockchain.GetCandidate(i));
+                    System.out.println(blockchain.GetCandidate(i));
                     candidates.add(blockchain.GetCandidateName(i));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -76,7 +80,7 @@ public class ResultFragment extends Fragment{
             Map<String, Integer> records = new LinkedHashMap<>();
             for (int i = 0; i < totalCandidates; ++i)
                 records.put(candidates.get(i), voteCount.get(i));
-
+            System.out.println(records);
             Set<Map.Entry<String, Integer>> candidateSet = records.entrySet();
 
             List<Map.Entry<String, Integer>> candidateListEntry = new ArrayList<Map.Entry<String, Integer>>(candidateSet);
@@ -89,16 +93,26 @@ public class ResultFragment extends Fragment{
                             return es2.getValue().compareTo(es1.getValue());
                         }
                     });
-
+            System.out.println(records);
             records.clear();
 
             for (Map.Entry<String, Integer> map : candidateListEntry) {
+                System.out.println(map.getKey() + " " + map.getValue());
                 records.put(map.getKey(), map.getValue());
             }
 
+            System.out.println(records);
+            /*
+            Map<String, Integer> records = new LinkedHashMap<>();
+            records.put("Samit", 1);
+            records.put("Sulav", 2);
+            records.put("Bikalp",3);*/
+
             for (Map.Entry<String, Integer> entry : records.entrySet()) {
                 String name = entry.getKey();
+                System.out.println(name);
                 int votes = entry.getValue();
+                System.out.println(votes);
                 cad.add(name, votes);
             }
         /*

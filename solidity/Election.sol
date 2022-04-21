@@ -63,12 +63,8 @@ contract Election{
 
     modifier checkIfVoterValid(address owner) {
         require(
-        !voters[owner].hasVoted,
+        voters[owner].weight != 0,
         "The Voter has already voted."
-               );
-        require(
-        voters[owner].weight > 0,
-        "The Voter has not voted yet."
                );
         require(
         voters[owner].isRegistered,
@@ -87,9 +83,17 @@ contract Election{
 
     modifier checkNotRegistered(address voter) {
         require(
-            !voters[voter].hasVoted && voters[voter].weight == 0 && !voters[voter].isRegistered,
+            !voters[voter].isRegistered,
             "Voter has already been registered."
         );
+        _;
+    }
+
+    modifier checkIfRegistered(address voter){
+        require(
+            voters[voter].isRegistered,
+            "Voter has not been registered."
+               );
         _;
     }
     
@@ -141,9 +145,15 @@ contract Election{
     {
         voterCount++;
         voterID[voterCount] = _voter;
-        voters[_voter].weight = 1;
         voters[_voter].isRegistered = false;
         voters[_voter].hasVoted = false;
+    }
+
+    function giveVoterWeight(address _voter)
+        public
+        checkIfRegistered(_voter)
+    {
+        voters[_voter].weight = 1;
     }
     
     function verifyVoter(address _voter, address owner)
@@ -241,6 +251,22 @@ contract Election{
                )
         {
             return (voters[_voter].weight == 0);
+        }
+
+    function returnCandidateCount() view public 
+        returns(
+        uint256
+               )
+        {
+            return candidateCount;
+        }
+
+    function returnVoterCount() view public
+        returns(
+        uint256
+               )
+        {
+            return voterCount;
         }
 }
 

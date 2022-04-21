@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,7 +40,11 @@ public class viewVoter extends AppCompatActivity {
 
                     String voted = null;
                     try {
-                        voted = (blockchain.checkVoted(user.getUserID()) ? "Yes" : "No");
+                        int id = user.getUserID();
+                        if(!blockchain.CheckRegistered(id))
+                            voted = "NR";
+                        else
+                            voted = (blockchain.checkVoted(user.getUserID()) ? "Yes" : "No");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
